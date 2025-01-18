@@ -24,7 +24,7 @@ function Content() {
           ))}
         </div>
         <aside>
-          <div className="w-96 test hidden xl:block p-3">
+          <div className="w-96  hidden xl:block p-3">
             <h1 className="text-2xl font-bold text-primary-content">
               Trending Now
             </h1>

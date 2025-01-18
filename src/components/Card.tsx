@@ -5,7 +5,7 @@ const Card = () => {
     <div className="w-full bg-base-100 shadow-xl rounded-md">
       <div className="h-52">
         <img
-          src="https://wallpaperaccess.com/thumb/88607.jpg"
+          src="https://wallpaperaccess.com/thumb/2203.jpg"
           alt="Shoes"
           className="h-full w-full object-cover rounded-md object-center"
         />
