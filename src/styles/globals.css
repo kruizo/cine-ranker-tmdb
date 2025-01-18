@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #000000;
+    --foreground: #ededed;
+    --base-gradient: #000000;
+    --base-text: #cecece;
+    --accent: #ad0009;
+    --text-white: #dedede;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.max-w-6xl {
+  max-width: 110rem;
+}
+
+.test {
+  border: 1px solid red;
+}
+.search {
+  transition: border-color 0.3s ease; /* Smooth transition for the border color change */
+  padding: 0.5rem;
+  background-color: transparent;
+  width: 100%;
+  display: none;
+  /* Define the glow effect on focus */
+}
+@media (min-width: 768px) {
+  .search {
+    display: flex;
+  }
+}
+.search:focus {
+  outline: none;
+}
