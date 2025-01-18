@@ -38,3 +38,12 @@
 .cast h4 span {
   color: #e50813;
 }
+
+.indicator {
+  transition: all 1s ease;
+  height: 4px;
+  background-color: antiquewhite;
+}
+.indicator:hover {
+  height: 20px;
+}
