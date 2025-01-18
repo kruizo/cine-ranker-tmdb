@@ -67,7 +67,7 @@ const Hero = () => {
       </div>
       <div className="absolute bottom-10 left-0 right-0 flex justify-center">
         <div className="h-10 w-8 px-3 cursor-pointer relative group overflow-hidden">
-          <div className="absolute -top-8 right-0 left-0 w-6 h-6 active:bg-[var(--accent)] mx-auto transition-all rounded-b-lg group-hover:h-6 group-hover:top-4"></div>
+          <div className="absolute -top-8 right-0 left-0 w-6 h-6 bg-[var(--accent)] mx-auto transition-all rounded-b-lg group-hover:h-6 group-hover:top-4"></div>
           <div className="absolute bottom-0 right-0 left-0 w-6 h-[2px] bg-[var(--base-text)] mx-auto transition-all group-hover:h-6 group-hover:-bottom-10"></div>
         </div>
         <div className="h-10 w-8 px-3 cursor-pointer relative group ">
