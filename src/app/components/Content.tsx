@@ -1,10 +1,31 @@
 import Card from "@components/Card";
+import { IMovieCollection } from "@customTypes/index";
 
-function Content() {
-  const cards = [];
+interface ContentProps {
+  movies: IMovieCollection;
+}
 
-  for (let index = 0; index < 20; index++) {
-    cards.push(<Card key={index} />);
+const Content: React.FC<ContentProps> = ({ movies }) => {
+  const { results } = movies;
+  let cards = [];
+
+  console.log(movies);
+
+  for (let index = 0; index < results.length; index++) {
+    cards.push(
+      <Card
+        key={index}
+        title={results[index].title}
+        poster_path={`https://image.tmdb.org/t/p/w500${results[index].poster_path}`}
+        overview={results[index].overview}
+        release_date={results[index].release_date}
+        vote_average={results[index].vote_average}
+        vote_count={results[index].vote_count}
+        genre_ids={results[index].genre_ids}
+        popularity={results[index].popularity}
+        original_language={results[index].original_language}
+      />
+    );
   }
   return (
     <div className="max-w-6xl  px-5">
@@ -33,6 +54,6 @@ function Content() {
       </div>
     </div>
   );
-}
+};
 
 export default Content;
