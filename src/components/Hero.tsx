@@ -25,17 +25,14 @@ const Hero = () => {
                 <span className="mx-4">| GP |</span>
                 <label>2.4hrs</label>
               </div>
-              <p className="hidden lg:line-clamp-5 overflow-hidden pr-40 sm:text-sm md:text-md lg:text-lg font-mono text-[color:var(--base-text)]">
+              <p className="hidden lg:line-clamp-5 overflow-hidden pr-40 sm:text-sm md:text-md lg:text-lg font-sans text-[color:var(--base-text)]">
                 During World War I, two British soldiers -- Lance Cpl. Schofield
                 and Lance Cpl. Blake -- receive seemingly impossible orders. In
                 a race against time, they must cross over into enemy territory
                 to deliver a message that could potentially save 1,600 of
                 theirrld War I, two British soldiers -- Lance Cpl. Schofield and
                 Lance Cpl. Blake -- receive seemingly impossible orders. In a
-                race against time, they must cross over into enemy territory to
-                deliver a message that could potentially save 1,600 of their
-                fellow comrades -- including Blake's own brother. fellow
-                comrades -- including Blake's own brother.
+                race against time,
               </p>
             </div>
             <div className="mt-7 flex gap-10 py-2">
@@ -55,8 +52,8 @@ const Hero = () => {
         </div>
         <div className="absolute top-0 -z-20 w-full h-full ">
           <div className="absolute inset-0 bg-black opacity-20 z-10" />
-          <div className="absolute top-0 inset-x-0 h-20 bg-gradient-to-t from-transparent to-base-300 z-40" />
-          <div className="absolute left inset-x-0 w-3/5 h-full bg-gradient-to-l from-transparent to-base-300 z-40" />
+          <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-t from-transparent to-base-300 z-40" />
+          <div className="absolute left inset-x-0 w-3/6 h-full bg-gradient-to-l from-transparent to-base-300 z-40" />
           <div className="absolute bottom-0 inset-x-0 h-4/5  bg-gradient-to-b from-transparent to-base-300  z-40" />
           <img
             src="https://wallpaperaccess.com/full/276147.jpg"
@@ -67,7 +64,7 @@ const Hero = () => {
       </div>
       <div className="absolute bottom-10 left-0 right-0 flex justify-center">
         <div className="h-10 w-8 px-3 cursor-pointer relative group overflow-hidden">
-          <div className="absolute bottom-0 right-0 left-0 w-6 h-[2px] bg-[var(--accent)] h-6 mx-auto transition-all group-hover:h-6 group-hover:rounded-b-lg"></div>
+          <div className="absolute bottom-0 right-0 left-0 w-6 bg-[var(--accent)] h-6 mx-auto transition-all group-hover:h-6 group-hover:rounded-b-lg"></div>
         </div>
         <div className="h-10 w-8 px-3 cursor-pointer relative group ">
           <div className="absolute bottom-0 right-0 left-0 w-6 h-[2px] bg-[var(--base-text)] mx-auto transition-all group-hover:h-6 group-hover:rounded-b-lg"></div>

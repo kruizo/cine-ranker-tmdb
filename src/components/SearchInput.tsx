@@ -6,8 +6,8 @@ const SearchInput = () => {
     <div className="flex flex-row relative justify-between bg-black bg-opacity-30 rounded-3xl w-full items-center">
       <input
         type="text"
-        placeholder="Search here"
-        className="p-3 pr-16 pl-12 text-center bg-transparent rounded-3xl outline-none focus:shadow-2xl w-full appearance-none focus:shadow-base-200 hover:bg-base-300 transition-all"
+        placeholder="Search for movies"
+        className="p-3 pr-16 pl-12 placeholder-gray-500 caret-[var(--accent)] text-center bg-transparent rounded-3xl outline-none focus:shadow-2xl w-full appearance-none focus:shadow-base-200 hover:bg-black hover:bg-opacity-30 transition-all"
       />
 
       <button

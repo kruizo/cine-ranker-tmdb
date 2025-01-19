@@ -29,6 +29,27 @@ body {
 .max-w-6xl {
   max-width: 110rem;
 }
+::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+  height: 10px; /* Height for horizontal scrollbar */
+}
+
+/* Customize the track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background: #454545; /* Light gray background */
+  border-radius: 10px;
+}
+
+/* Customize the thumb (scroll handle) */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Dark gray handle */
+  border-radius: 10px;
+}
+
+/* Add hover effect on the thumb */
+::-webkit-scrollbar-thumb:hover {
+  background: #6f6f6f; /* Slightly darker handle on hover */
+}
 
 .test {
   border: 1px solid red;
