@@ -58,7 +58,7 @@ const fetchTrendingAll = async (type: string, timeWindow: string) => {
 
 const fetchLatestMovies = async (page = 1) => {
   const params = {
-    include_adult: "false",
+    include_adult: "true",
     include_video: "false",
     language: "en-US",
     sort_by: "popularity.desc",
@@ -67,15 +67,25 @@ const fetchLatestMovies = async (page = 1) => {
   return GET("/discover/movie", params);
 };
 
-const getHeroUpcomingMovies = async () => {
+const getHeroUpcomingMovies = async (page = 1) => {
   const params = {
-    page: 1,
+    page: page,
   };
   return GET("/movie/now_playing", params);
 };
 
+const fetchAiringToday = async () => {
+  return GET("/tv/airing_today");
+};
+
+const fetchTrendingTV = async (timeWindow: string) => {
+  return GET(`/trending/tv/${timeWindow}`);
+};
+
 export {
   searchMovies,
+  fetchTrendingTV,
+  fetchAiringToday,
   fetchPopularMovies,
   fetchTrendingMovies,
   fetchAuthentication,
