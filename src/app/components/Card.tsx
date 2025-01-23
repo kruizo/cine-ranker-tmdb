@@ -1,4 +1,5 @@
 import React from "react";
+import Tilt from "react-parallax-tilt";
 import { normalizeRating } from "@utils/script";
 
 interface CardProps {
@@ -17,12 +18,23 @@ const Card: React.FC<CardProps> = ({
   media_type,
 }) => {
   const normalizedRating = normalizeRating(vote_average);
+
   return (
-    <div className="bg-base-100 shadow-xl rounded-md w-full">
+    <Tilt
+      className="bg-base-100 shadow-xl rounded-md w-full cursor-pointer"
+      tiltMaxAngleX={5} // Max tilt on X-axis
+      tiltMaxAngleY={10} // Max tilt on Y-axis
+      scale={1.05} // Scale on hover
+      transitionSpeed={400} // Speed of the tilt effect
+      glareEnable={true} // Enable glare effect
+      glareMaxOpacity={0.5} // Max opacity of the glare
+      glareColor="rgba(255, 255, 255, 0.5)" // Glare color
+      glarePosition="top"
+    >
       <div className="h-72">
         <img
           src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-          alt="Shoes"
+          alt="Poster"
           className="h-full w-full object-cover rounded-md object-center"
         />
       </div>
@@ -35,14 +47,13 @@ const Card: React.FC<CardProps> = ({
             {media_type.substring(0, 1).toUpperCase() + media_type.substring(1)}
           </span>
           <span className="text-sm text-[var(--base-gray)] flex gap-1 items-center">
-            {/* <span className="scale-150  -mt-[1px]">☆</span> */}
             <i className="fa fa-star text-[var(--base-gray)]"></i>
             {normalizedRating}
           </span>
         </div>
         <h2 className="card-title text-sm font-normal line-clamp-2">{title}</h2>
       </div>
-    </div>
+    </Tilt>
   );
 };
 
