@@ -3,12 +3,15 @@ import Card from "@components/Card";
 import Hero from "@components/Hero";
 import { fetchLatestMovies } from "../api";
 import { Fragment } from "react";
+import ExtendedCard from "@components/ExtendedCard";
 
 interface CardsListProps {
   movies: IMovieCollection;
 }
 
 const CardsList: React.FC<CardsListProps> = ({ movies }) => {
+  const lastMovie = movies.results[movies.results.length - 1];
+
   return (
     <Fragment>
       {movies && (
@@ -17,17 +20,21 @@ const CardsList: React.FC<CardsListProps> = ({ movies }) => {
             {movies.results.map((movie: IMovie, index) => (
               <Card
                 key={index}
+                media_type={movie.media_type ?? "movie"}
                 title={movie.title}
                 poster_path={movie.poster_path}
-                overview={movie.overview}
                 release_date={movie.release_date}
                 vote_average={movie.vote_average}
-                vote_count={movie.vote_count}
-                genre_ids={movie.genre_ids}
-                popularity={movie.popularity}
-                original_language={movie.original_language}
               />
             ))}
+            <ExtendedCard
+              key={movies.results.length}
+              media_type={lastMovie.media_type ?? "movie"}
+              title={lastMovie.title}
+              poster_path={lastMovie.poster_path}
+              release_date={lastMovie.release_date}
+              vote_average={lastMovie.vote_average}
+            />
           </div>
         </div>
       )}
