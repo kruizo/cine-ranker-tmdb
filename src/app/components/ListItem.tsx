@@ -19,7 +19,7 @@ const ListItem: React.FC<ListItemProps> = ({
 }) => {
   return (
     <Fragment>
-      <div className="flex gap-2 py-2 overflow-hidden">
+      <div className="flex gap-4 py-2 overflow-hidden">
         <div className="w-10 h-20">
           <img
             src={`https://image.tmdb.org/t/p/w500/${poster_path}}`}
@@ -31,7 +31,7 @@ const ListItem: React.FC<ListItemProps> = ({
           <span className="text-sm text-[var(--base-gray)]">
             {type} / {release_date.split("-")[0]}
           </span>
-          <h3 className="text-lg font-semibold line-clamp-1">{title}</h3>
+          <h3 className="text-md font-semibold line-clamp-1">{title}</h3>
         </div>
       </div>
     </Fragment>

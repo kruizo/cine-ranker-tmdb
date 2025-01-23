@@ -26,7 +26,7 @@ const TrendingList = () => {
     <Fragment>
       {trendingMovies && (
         <div className="space-y-2">
-          <h1 className="text-3xl font-extrabold text-primary-content mb-4 ">
+          <h1 className=" border-l-[var(--accent)] border-l-[12px] px-4 text-3xl font-extrabold text-primary-content mb-4 ">
             TRENDING
           </h1>
           {trendingMovies.results.slice(0, 4).map((movie, index) => (

@@ -10,7 +10,7 @@ import UpcomingList from "@components/UpcomingList";
 const Content = () => {
   return (
     <Fragment>
-      <div className="max-w-6xl px-5 flex">
+      <div className="max-w-6xl px-5 flex gap-6">
         <RecommendedListCards />
         <div className="pt-20">
           <Sidepanel>
