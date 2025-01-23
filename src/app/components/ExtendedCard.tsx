@@ -2,17 +2,13 @@ import React from "react";
 import { normalizeRating } from "@utils/script";
 
 interface ExtendedCard {
-  title: string;
   poster_path: string;
-  release_date: string;
   vote_average: number;
   media_type: string;
 }
 
 const ExtendedCard: React.FC<ExtendedCard> = ({
-  title,
   poster_path,
-  release_date,
   vote_average,
   media_type,
 }) => {

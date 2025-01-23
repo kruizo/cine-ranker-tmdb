@@ -41,7 +41,7 @@ const Card: React.FC<CardProps> = ({
       <div className="card-body py-3 px-0 h-[6rem]">
         <div className="flex justify-between items-center py-1">
           <span className="text-sm text-[var(--base-gray)]">
-            {release_date.split("-")[0]}
+            {release_date?.split("-")[0]}
           </span>
           <span className="text-sm text-[var(--base-gray)]">
             {media_type.substring(0, 1).toUpperCase() + media_type.substring(1)}

@@ -1,14 +1,14 @@
-import { IMovieCollection } from "@customTypes/index";
+import { ITvCollection } from "@customTypes/index";
 import CardsList from "./CardsList";
-import { fetchPopularTV } from "../api";
+import { fetchTrendingTV } from "../api";
 import { Fragment, useState, useEffect } from "react";
 
 const PopularTVListCards = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [recommendedMovies, setRecommendedMovies] =
-    useState<IMovieCollection | null>(null);
+  const [recommendedShows, setRecommendedMovies] =
+    useState<ITvCollection | null>(null);
   const [hoverMovies, setHoverMovies] = useState<{
-    [key: number]: IMovieCollection;
+    [key: number]: ITvCollection;
   }>({});
   const [isFetching, setIsFetching] = useState(false);
 
@@ -16,7 +16,7 @@ const PopularTVListCards = () => {
     if (hoverMovies[page] || isFetching) return;
     try {
       console.log(`Pre-fetching movies for page ${page}...`);
-      const response = await fetchPopularTV(page);
+      const response = await fetchTrendingTV("week");
       setHoverMovies((prev) => ({ ...prev, [page]: response }));
       console.log(`Pre-fetched movies for page ${page}:`, response);
     } catch (error) {
@@ -25,13 +25,13 @@ const PopularTVListCards = () => {
   };
 
   const handlePageChange = async (page: number) => {
-    if (isFetching || page < 1 || page > (recommendedMovies?.total_pages || 1))
+    if (isFetching || page < 1 || page > (recommendedShows?.total_pages || 1))
       return;
 
     setIsFetching(true);
     try {
       console.log(`Fetching movies for page ${page}...`);
-      const response = hoverMovies[page] || (await fetchPopularTV(page));
+      const response = hoverMovies[page] || (await fetchTrendingTV("week"));
       setRecommendedMovies(response);
       setCurrentPage(page);
       console.log(`Movies updated for page ${page}`);
@@ -47,7 +47,7 @@ const PopularTVListCards = () => {
       try {
         console.log("Fetching movies...");
 
-        const response = await fetchPopularTV();
+        const response = await fetchTrendingTV("week");
         setRecommendedMovies(response);
         console.log(response);
       } catch (error) {
@@ -58,21 +58,15 @@ const PopularTVListCards = () => {
   }, []);
   return (
     <Fragment>
-      {recommendedMovies && (
+      {recommendedShows && (
         <div className="py-7">
           <div className="flex justify-between ">
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center pb-3">
               <h1 className="border-l-[var(--accent)] border-l-[12px] px-4 text-3xl font-extrabold text-primary-content">
-                RECOMMENDED
+                POPULAR TV SHOWS
               </h1>
-              <button className="text-sm rounded-lg px-2 py-1 border border-[var(--accent)] text-[var(--accent)] hover:text-white hover:bg-[var(--accent)] hover:border-[var(--accent)] transition-colors">
-                MOVIES
-              </button>
-              <button className="text-sm rounded-lg px-2 py-1 border border-[var(--base-gray)] text-[var(--base-gray)] hover:text-white hover:bg-[var(--accent)] hover:border-[var(--accent)] transition-colors">
-                TV SHOWS
-              </button>
             </div>
-            <div className="flex justify-center items-center gap-2 ">
+            {/* <div className="flex justify-center items-center gap-2 ">
               <button
                 className={` px-3 py-2 transition-colors rounded-md ${
                   currentPage != 1
@@ -89,11 +83,11 @@ const PopularTVListCards = () => {
               </button>
               <button
                 className={` px-3 py-2 transition-colors rounded-md ${
-                  currentPage != recommendedMovies.total_pages
+                  currentPage != recommendedShows.total_pages
                     ? "text-[var(--accent)] hover:text-[var(--text-white)] hover:bg-[var(--accent)] border border-[var(--accent)]"
                     : "border border-[var(--base-gray)] text-[var(--base-gray)] "
                 }`}
-                disabled={currentPage === recommendedMovies.total_pages}
+                disabled={currentPage === recommendedShows.total_pages}
                 onClick={() => handlePageChange(currentPage + 1)}
                 onMouseEnter={() => prefetchMovies(currentPage + 1)}
               >
@@ -102,10 +96,10 @@ const PopularTVListCards = () => {
                   style={{ fontSize: "25px" }}
                 ></i>
               </button>
-            </div>
+            </div> */}
           </div>
           <div className="flex py-4">
-            <CardsList movies={recommendedMovies} />
+            <CardsList tv={recommendedShows} maxRows={2} />
           </div>
         </div>
       )}
