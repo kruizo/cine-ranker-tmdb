@@ -13,6 +13,8 @@
     --foreground: #ededed;
     --base-gradient: #000000;
     --base-text: #cecece;
+    --base-dark-text: #888888;
+    --base-gray: #515151;
     --accent: #ad0009;
     --text-white: #dedede;
   }
@@ -30,25 +32,26 @@ body {
   max-width: 110rem;
 }
 ::-webkit-scrollbar {
-  width: 10px; /* Width of the scrollbar */
-  height: 10px; /* Height for horizontal scrollbar */
+  width: 10px;
+  height: 10px;
 }
 
-/* Customize the track (background of the scrollbar) */
 ::-webkit-scrollbar-track {
-  background: #454545; /* Light gray background */
+  background: #454545;
   border-radius: 10px;
 }
 
-/* Customize the thumb (scroll handle) */
 ::-webkit-scrollbar-thumb {
-  background: #888; /* Dark gray handle */
+  background: #888;
   border-radius: 10px;
 }
 
-/* Add hover effect on the thumb */
 ::-webkit-scrollbar-thumb:hover {
-  background: #6f6f6f; /* Slightly darker handle on hover */
+  background: #6f6f6f;
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
 }
 
 .test {

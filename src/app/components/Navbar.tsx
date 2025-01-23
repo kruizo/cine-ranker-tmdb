@@ -6,7 +6,7 @@ import { IMovie } from "@customTypesindex";
 
 const Navbar = () => {
   return (
-    <nav className="absolute mx-auto px-5 right-0 left-0 max-w-6xl bg-transparent justify-between py-10">
+    <nav className="absolute mx-auto px-5 right-0 left-0 max-w-6xl bg-transparent justify-between py-10 z-20">
       <div className="flex justify-between  h-12">
         <div className="flex justify-center items-center gap-8 ">
           <div className=" text-primary-content">

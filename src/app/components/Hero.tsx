@@ -1,22 +1,33 @@
-import React, { Fragment, use, useEffect, useRef } from "react";
+import React, { useState, useRef, useEffect, Fragment } from "react";
 import DetailsButton from "@components/DetailsButton";
 import ViewButton from "@components/ViewButton";
 import styles from "@styles/Hero.module.css";
 import { IMovie } from "@customTypes/index";
 import Rating from "./Rating";
+import { getHeroUpcomingMovies } from "../api";
 
-interface HeroProps {
-  featured: IMovie[] | null;
-}
+const Hero = () => {
+  const [upcomingMovies, setUpcomingMovies] = useState<IMovie[] | null>(null);
 
-const Hero: React.FC<HeroProps> = ({ featured }) => {
-  const movie = featured?.[4];
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        console.log("Fetching movies...");
+
+        const response = await getHeroUpcomingMovies();
+        setUpcomingMovies(response.results.slice(0, 5));
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
+    fetch();
+  }, []);
 
   const [currentIndex, setCurrentIndex] = React.useState(0);
-  const sliderRef = React.useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
   const startXRef = useRef(0);
-  const scrollOffsetRef = useRef(0);
 
   const scrollToCard = (index: number) => {
     const card = document.querySelectorAll(".feature-card")[index];
@@ -28,54 +39,50 @@ const Hero: React.FC<HeroProps> = ({ featured }) => {
     setCurrentIndex(index);
   };
 
-  const startDrag = (e: MouseEvent, index: number) => {
-    console.log("Dragging started");
+  const startDrag = (e: MouseEvent) => {
     isDraggingRef.current = true;
     startXRef.current = e.clientX;
-    scrollOffsetRef.current = sliderRef.current?.scrollLeft || 0;
-    // Prevent text selection while dragging
-    document.body.style.userSelect = "none";
-    setCurrentIndex(index); // Set the active card index while dragging
+    // document.body.style.userSelect = "none";
   };
 
   const stopDrag = () => {
     isDraggingRef.current = false;
-    document.body.style.userSelect = "auto";
+    // document.body.style.userSelect = "auto";
   };
 
   const handleMouseMove = (e: MouseEvent) => {
     if (!isDraggingRef.current || !sliderRef.current) return;
     const distanceMoved = e.clientX - startXRef.current;
-    sliderRef.current.scrollLeft = scrollOffsetRef.current - distanceMoved;
+    sliderRef.current.scrollLeft -= distanceMoved;
+    startXRef.current = e.clientX;
   };
 
   useEffect(() => {
     if (sliderRef.current) {
-      console.log("Attaching mousedown event");
-      window.addEventListener("mouseup", stopDrag);
+      sliderRef.current.addEventListener("mousedown", startDrag);
       window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", stopDrag);
 
       return () => {
-        window.removeEventListener("mouseup", stopDrag);
+        sliderRef.current?.removeEventListener("mousedown", startDrag);
         window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("mouseup", stopDrag);
       };
     }
   }, []);
 
   return (
-    <section id="hero" className="relative ">
+    <section id="hero" className="relative">
       <div
+        id="slider"
         ref={sliderRef}
-        className="slider relative overflow-x-auto overflow-y-hidden flex snap-x snap-mandatory mt-10"
+        className="slider pointer-events-auto relative overflow-x-scroll overflow-y-hidden flex snap-x snap-mandatory mt-10"
       >
-        {featured && movie && (
+        {upcomingMovies && (
           <Fragment>
-            {featured.map((movie, index) => (
+            {upcomingMovies.map((movie, index) => (
               <div
                 key={index}
-                onMouseDown={(e: React.MouseEvent<HTMLDivElement>) =>
-                  startDrag(e.nativeEvent, index)
-                }
                 className="feature-card flex-shrink snap-start transition-transform duration-300 relative min-w-full max-h-[40rem] lg:max-h-[42rem] lg:py-20 items-start justify-start"
               >
                 <div className="px-10 py-28 md:mx-auto z-20 grid grid-cols-3 max-w-6xl justify-center items-center">
@@ -105,7 +112,7 @@ const Hero: React.FC<HeroProps> = ({ featured }) => {
                   <div className="hidden md:block h-96">
                     <img
                       src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                      className="rounded-lg shadow-2xl object-contain h-full w-full"
+                      className="rounded-lg object-contain h-full w-full"
                       alt={movie.title}
                     />
                   </div>
@@ -126,6 +133,7 @@ const Hero: React.FC<HeroProps> = ({ featured }) => {
           </Fragment>
         )}
       </div>
+
       <div className="indicators absolute bottom-10 left-0 right-0 flex justify-center">
         {[...Array(5)].map((_, index) => (
           <button
@@ -134,11 +142,11 @@ const Hero: React.FC<HeroProps> = ({ featured }) => {
             className="h-10 w-8 px-3 cursor-pointer relative group "
           >
             <div
-              className={`absolute w-6  bottom-0 right-0 left-0  ${
+              className={`absolute w-6 bottom-0 right-0  h-[1px] left-0 ${
                 currentIndex === index
-                  ? "bg-[var(--accent)] h-6 rounded-b-lg"
-                  : "bg-[var(--base-text)] h-[2px]"
-              } mx-auto transition-all group-hover:h-6 group-hover:rounded-b-lg`}
+                  ? "bg-[var(--accent)]"
+                  : "bg-[var(--base-gray)]"
+              } mx-auto transition-all group-hover:h-6 `}
             ></div>
           </button>
         ))}

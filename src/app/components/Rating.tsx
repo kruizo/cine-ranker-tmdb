@@ -13,35 +13,50 @@ const Rating: React.FC<RatingProps> = ({
   release_date,
 }) => {
   const normalizedRating = normalizeRating(voteAverage);
-
+  const releaseYear = release_date.split("-")[0];
   const fullStars = Math.floor(normalizedRating);
   const hasHalfStar = normalizedRating % 1 >= 0.5;
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
   return (
-    <div className="flex items-center">
-      {Array(fullStars)
-        .fill(0)
-        .map((_, index) => (
-          <i key={`full-${index}`} className="fa fa-star text-yellow-500"></i>
-        ))}
+    <div className="flex items-center gap-2 text-[var(--base-dark-text)] bg-black py-2 px-3 bg-opacity-30 rounded-full text-sm sm:text-md">
+      <div className="flex items-center justify-center">
+        {Array(fullStars)
+          .fill(0)
+          .map((_, index) => (
+            <i key={`full-${index}`} className="fa fa-star text-yellow-500"></i>
+          ))}
 
-      {hasHalfStar && (
-        <div className="relative w-fit h-fit">
-          <i className="fa fa-star-half text-yellow-500"></i>
-          <i className="fa fa-star absolute bottom-0 left-0 right-0 top-[3.2px] -z-10 text-gray-600"></i>
-        </div>
-      )}
+        {hasHalfStar && (
+          <div className="relative w-fit h-fit">
+            <i className="fa fa-star-half text-yellow-500"></i>
+            <i className="fa fa-star absolute bottom-0 left-0 right-0 top-[3.2px] -z-10 text-[var(--base-dark-text)]"></i>
+          </div>
+        )}
 
-      {Array(emptyStars)
-        .fill(0)
-        .map((_, index) => (
-          <i key={`empty-${index}`} className="fa fa-star text-gray-600"></i>
-        ))}
-      <label className="ml-2">{normalizedRating} Rating</label>
+        {Array(emptyStars)
+          .fill(0)
+          .map((_, index) => (
+            <i
+              key={`empty-${index}`}
+              className="fa fa-star text-[var(--base-dark-text)]"
+            ></i>
+          ))}
+        <label className="ml-2 text-center ">
+          <strong className="text-[var(--text-white)]">
+            {normalizedRating}
+          </strong>{" "}
+          Rating
+        </label>
+      </div>
 
-      <span className="mx-4">| {popularity} Popularity |</span>
-      <label>{release_date}</label>
+      <label className="text-center border-r border-l px-1 ">
+        <strong className="text-[var(--text-white)]">{popularity}</strong>{" "}
+        Popularity
+      </label>
+      <label className="bg-[var(--accent)] text-[var(--text-white)] px-2 pt-2 rounded-lg">
+        <strong>{releaseYear}</strong>
+      </label>
     </div>
   );
 };

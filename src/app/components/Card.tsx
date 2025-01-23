@@ -25,16 +25,16 @@ const Card: React.FC<CardProps> = ({
   original_language,
 }) => {
   return (
-    <div className="w-full bg-base-100 shadow-xl rounded-md">
-      <div className="h-52">
+    <div className="bg-base-100 shadow-xl rounded-md w-full">
+      <div className="h-72">
         <img
-          src={poster_path}
+          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
           alt="Shoes"
           className="h-full w-full object-cover rounded-md object-center"
         />
       </div>
-      <div className="card-body py-3 px-0 ">
-        <h2 className="card-title text-sm font-normal">{title}</h2>
+      <div className="card-body py-3 px-0 h-14">
+        <h2 className="card-title text-sm font-normal line-clamp-2">{title}</h2>
       </div>
     </div>
   );

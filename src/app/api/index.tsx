@@ -43,8 +43,8 @@ const fetchPopularMovies = async () => {
 };
 
 // fetch trending movies
-const fetchTrendingMovies = async (type: string, timeWindow: string) => {
-  return GET(`/trending/${type}/${timeWindow}`);
+const fetchTrendingMovies = async (timeWindow: string) => {
+  return GET(`/trending/movie/${timeWindow}`);
 };
 
 // fetch movies by genre
@@ -67,11 +67,19 @@ const fetchLatestMovies = async (page = 1) => {
   return GET("/discover/movie", params);
 };
 
+const getHeroUpcomingMovies = async () => {
+  const params = {
+    page: 1,
+  };
+  return GET("/movie/now_playing", params);
+};
+
 export {
   searchMovies,
   fetchPopularMovies,
   fetchTrendingMovies,
   fetchAuthentication,
+  getHeroUpcomingMovies,
   fetchLatestMovies,
   fetchMoviesByGenre,
   fetchTrendingAll,

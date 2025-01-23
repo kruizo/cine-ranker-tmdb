@@ -6,7 +6,7 @@ const normalizeRating = (rating) => {
 };
 const extractYearFromDate = (date) => {
   const year = date.split("-")[0];
-  return parseInt(year);
+  return year;
 };
 
 export { normalizeRating, extractYearFromDate };
