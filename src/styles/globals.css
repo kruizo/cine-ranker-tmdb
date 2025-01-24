@@ -15,7 +15,7 @@
     --base-text: #cecece;
     --base-dark-text: #888888;
     --base-gray: #515151;
-    --accent: #ad0009;
+    --accent: rgb(173, 0, 9);
     --text-white: #dedede;
   }
 }

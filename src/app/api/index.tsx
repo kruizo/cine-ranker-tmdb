@@ -148,19 +148,40 @@ const fetchDiscoverTVShows = async ({
   return GET("/discover/tv", params);
 };
 
-const getHeroUpcomingMovies = async (page = 1) => {
+const fetchNowPlayingMovies = async (page = 1) => {
   const params = {
     page: page,
   };
   return GET("/movie/now_playing", params);
 };
 
-const fetchAiringToday = async () => {
-  return GET("/tv/airing_today");
+const fetchUpcomingMovies = async (page = 1, language = "en") => {
+  const params = {
+    page: page,
+    language: language,
+  };
+
+  return GET("/movie/upcoming", params);
+};
+
+const fetchAiringToday = async (page = 1, language = "en") => {
+  const params = {
+    page: page,
+    language: language,
+  };
+  return GET("/tv/airing_today", params);
 };
 
 const fetchTrendingTV = async (timeWindow: string) => {
   return GET(`/trending/tv/${timeWindow}`);
+};
+
+const fetchPopularTV = async (page = 1, language = "en") => {
+  const params = {
+    page: page,
+    language: language,
+  };
+  return GET("/tv/popular", params);
 };
 
 const fetchKeywordId = async (keyword: string, page = 1) => {
@@ -171,16 +192,26 @@ const fetchKeywordId = async (keyword: string, page = 1) => {
   return GET("/search/keyword", params);
 };
 
+const fetchGenreIdFromName = async (genre: string) => {
+  const response = await GET("/genre/movie/list");
+  const genreId = response.genres.find(
+    (g: { name: string; id: number }) => g.name === genre
+  )?.id;
+  return genreId;
+};
+
 export {
   searchMovies,
+  fetchUpcomingMovies,
   fetchKeywordId,
+  fetchPopularTV,
   fetchTrendingTV,
   fetchAiringToday,
   fetchPopularMovies,
   fetchTrendingMovies,
   fetchAuthentication,
   fetchDiscoverTVShows,
-  getHeroUpcomingMovies,
+  fetchNowPlayingMovies,
   fetchDiscoverMovies,
   fetchMoviesByGenre,
   fetchTrendingAll,

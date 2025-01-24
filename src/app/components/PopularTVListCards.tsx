@@ -1,6 +1,10 @@
-import { ITvCollection } from "@customTypes/index";
+import { ITvCollection, ITvShow } from "@customTypes/index";
 import CardsList from "./CardsList";
-import { fetchTrendingTV } from "../api";
+import {
+  fetchDiscoverTVShows,
+  fetchAiringToday,
+  fetchTrendingTV,
+} from "../api";
 import { Fragment, useState, useEffect } from "react";
 
 const PopularTVListCards = () => {
@@ -15,7 +19,7 @@ const PopularTVListCards = () => {
   const prefetchMovies = async (page: number) => {
     if (hoverMovies[page] || isFetching) return;
     try {
-      const response = await fetchTrendingTV("week");
+      const response = await fetchAiringToday(page);
       setHoverMovies((prev) => ({ ...prev, [page]: response }));
     } catch (error) {
       console.error("Error prefetching movies:", error);
@@ -28,7 +32,10 @@ const PopularTVListCards = () => {
 
     setIsFetching(true);
     try {
-      const response = hoverMovies[page] || (await fetchTrendingTV("week"));
+      const response = hoverMovies[page] || (await fetchAiringToday(page));
+      console.log(
+        hoverMovies[page] ? "Data from hoverItems" : "Data from fetch"
+      );
       setRecommendedMovies(response);
       setCurrentPage(page);
     } catch (error) {
@@ -41,7 +48,7 @@ const PopularTVListCards = () => {
   useEffect(() => {
     const getMovies = async () => {
       try {
-        const response = await fetchTrendingTV("week");
+        const response = await fetchAiringToday(1);
         setRecommendedMovies(response);
       } catch (error) {
         console.error("Error fetching movies:", error);
@@ -49,6 +56,7 @@ const PopularTVListCards = () => {
     };
     getMovies();
   }, []);
+
   return (
     <Fragment>
       {recommendedShows && (
@@ -56,10 +64,10 @@ const PopularTVListCards = () => {
           <div className="flex justify-between ">
             <div className="flex gap-2 items-center pb-3">
               <h1 className="text-lg sm:text-xl md:text-3xl border-l-[var(--accent)] border-l-[12px] px-4 font-extrabold text-primary-content">
-                POPULAR TV SHOWS
+                AIRING TODAY
               </h1>
             </div>
-            {/* <div className="flex justify-center items-center gap-2 ">
+            <div className="flex justify-center items-center gap-2 ">
               <button
                 className={` px-3 py-2 transition-colors rounded-md ${
                   currentPage != 1
@@ -68,6 +76,7 @@ const PopularTVListCards = () => {
                 }`}
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
+                onMouseEnter={() => prefetchMovies(currentPage)}
               >
                 <i
                   className="fa fa-angle-left"
@@ -82,20 +91,20 @@ const PopularTVListCards = () => {
                 }`}
                 disabled={currentPage === recommendedShows.total_pages}
                 onClick={() => handlePageChange(currentPage + 1)}
-                onMouseEnter={() => prefetchMovies(currentPage + 1)}
+                onMouseEnter={() => prefetchMovies(currentPage)}
               >
                 <i
                   className="fa fa-angle-right"
                   style={{ fontSize: "25px" }}
                 ></i>
               </button>
-            </div> */}
+            </div>
           </div>
           <div className="flex py-4">
             <CardsList
               category="tv"
               items={recommendedShows}
-              maxRows={1}
+              maxRows={2}
               extendedCard={true}
             />
           </div>

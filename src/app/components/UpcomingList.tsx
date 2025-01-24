@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import { IMovieCollection } from "@customTypes/index";
-import { getHeroUpcomingMovies } from "../api";
+import { fetchNowPlayingMovies } from "../api";
 import ListItem from "@components/ListItem";
 
 const UpcomingList = () => {
@@ -11,7 +11,7 @@ const UpcomingList = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const response = await getHeroUpcomingMovies();
+        const response = await fetchNowPlayingMovies();
         setUpcomingMovies(response);
       } catch (error) {
         console.error("Error fetching movies:", error);

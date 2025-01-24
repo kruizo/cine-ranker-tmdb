@@ -23,7 +23,8 @@
       "@components/*": ["./src/app/components/*"],
       "@styles/*": ["./src/styles/*"],
       "@customTypes*": ["./src/app/types/*"],
-      "@utils/*": ["./src/app/utils/*"]
+      "@utils/*": ["./src/app/utils/*"],
+      "@data/*": ["./src/app/data/*"]
     }
   },
   "include": [

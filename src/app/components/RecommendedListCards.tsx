@@ -11,7 +11,7 @@ const RecommendedListCards = () => {
     [key: number]: IMovieCollection;
   }>({});
   const [isFetching, setIsFetching] = useState(false);
-  const [category, setCategory] = useState<"movies" | "tv">("movies"); // New state to track category
+  const [category, setCategory] = useState<"movies" | "tv">("movies");
 
   const fetchItems = async (page: number, type: "movies" | "tv") => {
     return type === "movies"
@@ -32,7 +32,6 @@ const RecommendedListCards = () => {
     try {
       const response = await fetchItems(page, type);
       setHoverItems((prev) => ({ ...prev, [page]: response }));
-      console.log("RESPONSE: ", response);
     } catch (error) {
       console.error("Error prefetching items:", error);
     }
@@ -45,6 +44,9 @@ const RecommendedListCards = () => {
     setIsFetching(true);
     try {
       const response = hoverItems[page] || (await fetchItems(page, category));
+      console.log(
+        hoverItems[page] ? "Data from hoverItems" : "Data from fetch"
+      );
       setRecommendedItems(response);
       setCurrentPage(page);
     } catch (error) {

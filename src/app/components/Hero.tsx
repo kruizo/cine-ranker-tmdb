@@ -7,7 +7,7 @@ import Rating from "./Rating";
 import { fetchPopularMovies } from "../api";
 
 const Hero = () => {
-  const [upcomingMovies, setUpcomingMovies] = useState<IMovie[] | null>(null);
+  const [heroMovies, setHeroMovies] = useState<IMovie[] | null>(null);
 
   useEffect(() => {
     const fetch = async () => {
@@ -16,7 +16,7 @@ const Hero = () => {
         const result = response.results
           .slice(0, 5)
           .sort((a: IMovie, b: IMovie) => b.vote_average - a.vote_average);
-        setUpcomingMovies(result);
+        setHeroMovies(result);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
@@ -78,9 +78,9 @@ const Hero = () => {
         ref={sliderRef}
         className="slider pointer-events-auto relative overflow-x-scroll overflow-y-hidden flex snap-x snap-mandatory mt-10"
       >
-        {upcomingMovies && (
+        {heroMovies && (
           <Fragment>
-            {upcomingMovies.map((movie, index) => (
+            {heroMovies.map((movie, index) => (
               <div
                 key={index}
                 className="feature-card flex-shrink snap-start transition-transform duration-300 relative min-w-full max-h-[40rem] lg:max-h-[42rem] lg:py-20 items-start justify-start"
