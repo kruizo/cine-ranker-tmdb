@@ -3,19 +3,19 @@ import Tilt from "react-parallax-tilt";
 import { normalizeRating } from "@utils/script";
 
 interface CardProps {
+  media_type: string;
   title: string;
   poster_path: string;
   release_date: string;
   vote_average: number;
-  media_type: string;
 }
 
 const Card: React.FC<CardProps> = ({
+  media_type,
   title,
   poster_path,
   release_date,
   vote_average,
-  media_type,
 }) => {
   const normalizedRating = normalizeRating(vote_average);
 

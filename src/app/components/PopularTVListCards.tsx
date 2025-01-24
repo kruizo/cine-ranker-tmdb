@@ -15,10 +15,8 @@ const PopularTVListCards = () => {
   const prefetchMovies = async (page: number) => {
     if (hoverMovies[page] || isFetching) return;
     try {
-      console.log(`Pre-fetching movies for page ${page}...`);
       const response = await fetchTrendingTV("week");
       setHoverMovies((prev) => ({ ...prev, [page]: response }));
-      console.log(`Pre-fetched movies for page ${page}:`, response);
     } catch (error) {
       console.error("Error prefetching movies:", error);
     }
@@ -30,11 +28,9 @@ const PopularTVListCards = () => {
 
     setIsFetching(true);
     try {
-      console.log(`Fetching movies for page ${page}...`);
       const response = hoverMovies[page] || (await fetchTrendingTV("week"));
       setRecommendedMovies(response);
       setCurrentPage(page);
-      console.log(`Movies updated for page ${page}`);
     } catch (error) {
       console.error("Error fetching movies:", error);
     } finally {
@@ -45,11 +41,8 @@ const PopularTVListCards = () => {
   useEffect(() => {
     const getMovies = async () => {
       try {
-        console.log("Fetching movies...");
-
         const response = await fetchTrendingTV("week");
         setRecommendedMovies(response);
-        console.log(response);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
@@ -99,7 +92,12 @@ const PopularTVListCards = () => {
             </div> */}
           </div>
           <div className="flex py-4">
-            <CardsList category="tv" items={recommendedShows} />
+            <CardsList
+              category="tv"
+              items={recommendedShows}
+              maxRows={1}
+              extendedCard={true}
+            />
           </div>
         </div>
       )}

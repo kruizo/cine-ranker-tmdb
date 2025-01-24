@@ -15,15 +15,24 @@ const RecommendedListCards = () => {
 
   const fetchItems = async (page: number, type: "movies" | "tv") => {
     return type === "movies"
-      ? fetchDiscoverMovies({ page })
-      : fetchDiscoverTVShows({ page });
+      ? fetchDiscoverMovies({
+          page: page,
+          minVoteAverage: 7,
+          releaseYearAfter: 2015,
+        })
+      : fetchDiscoverTVShows({
+          page,
+          minVoteAverage: 7,
+          releaseYearAfter: 2015,
+        });
   };
 
-  const prefetchItems = async (page: number) => {
+  const prefetchItems = async (page: number, type: "movies" | "tv") => {
     if (hoverItems[page] || isFetching) return;
     try {
-      const response = await fetchItems(page, category);
+      const response = await fetchItems(page, type);
       setHoverItems((prev) => ({ ...prev, [page]: response }));
+      console.log("RESPONSE: ", response);
     } catch (error) {
       console.error("Error prefetching items:", error);
     }
@@ -55,7 +64,7 @@ const RecommendedListCards = () => {
       }
     };
     getItems();
-  }, [category]); // Refetch when the category changes
+  }, [category]);
 
   return (
     <Fragment>
@@ -67,24 +76,24 @@ const RecommendedListCards = () => {
                 RECOMMENDED
               </h1>
               <button
-                className={`text-sm rounded-lg px-2 py-1 border ${
+                className={`text-sm rounded-lg px-2 py-1 border hidden sm:block ${
                   category === "movies"
                     ? "border-[var(--accent)] text-[var(--accent)] hover:text-white hover:bg-[var(--accent)]"
                     : "border-[var(--base-gray)] text-[var(--base-gray)]"
                 } transition-colors`}
                 onClick={() => setCategory("movies")}
-                onMouseEnter={() => prefetchItems(currentPage)}
+                onMouseEnter={() => prefetchItems(currentPage, "movies")}
               >
                 MOVIES
               </button>
               <button
-                className={`text-sm rounded-lg px-2 py-1 border ${
+                className={`text-sm rounded-lg px-2 py-1 border hidden sm:block ${
                   category === "tv"
                     ? "border-[var(--accent)] text-[var(--accent)] hover:text-white hover:bg-[var(--accent)]"
                     : "border-[var(--base-gray)] text-[var(--base-gray)]"
                 } transition-colors`}
                 onClick={() => setCategory("tv")}
-                onMouseEnter={() => prefetchItems(currentPage)}
+                onMouseEnter={() => prefetchItems(currentPage, "tv")}
               >
                 TV SHOWS
               </button>
@@ -98,6 +107,7 @@ const RecommendedListCards = () => {
                 }`}
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
+                onMouseEnter={() => prefetchItems(currentPage - 1, category)}
               >
                 <i
                   className="fa fa-angle-left"
@@ -112,7 +122,7 @@ const RecommendedListCards = () => {
                 }`}
                 disabled={currentPage === recommendedItems.total_pages}
                 onClick={() => handlePageChange(currentPage + 1)}
-                onMouseEnter={() => prefetchItems(currentPage + 1)}
+                onMouseEnter={() => prefetchItems(currentPage + 1, category)}
               >
                 <i
                   className="fa fa-angle-right"
@@ -122,7 +132,11 @@ const RecommendedListCards = () => {
             </div>
           </div>
           <div className="flex py-4">
-            <CardsList category={category} items={recommendedItems} />
+            <CardsList
+              category={category}
+              items={recommendedItems}
+              extendedCard={true}
+            />
           </div>
         </div>
       )}

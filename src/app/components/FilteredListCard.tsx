@@ -10,7 +10,7 @@ interface FilteredListCardProps {
   include_adult?: boolean;
   title: string;
   companyIds?: Array<string>;
-  sort_by: string;
+  sort_by?: string;
 }
 
 const FilteredListCard: React.FC<FilteredListCardProps> = ({
@@ -30,17 +30,15 @@ const FilteredListCard: React.FC<FilteredListCardProps> = ({
   useEffect(() => {
     const getMovies = async () => {
       try {
-        console.log("Fetching movies...");
-
         const response = await fetchDiscoverMovies({
           page: 1,
           keywords: keywords,
           genres: genres,
           companyIds: companyIdsString,
-          sort_by: sort_by,
+          minVoteAverage: 5,
+          releaseYearAfter: 2010,
         });
         setFilteredMovies(response);
-        console.log(response);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
@@ -57,7 +55,7 @@ const FilteredListCard: React.FC<FilteredListCardProps> = ({
             </h1>
           </div>
           <div className="py-4">
-            <ScrollableCardsList movies={filteredMovies} />
+            <ScrollableCardsList category="movies" items={filteredMovies} />
           </div>
         </div>
       )}

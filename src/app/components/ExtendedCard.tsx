@@ -10,7 +10,7 @@ const ExtendedCard: React.FC<ExtendedCard> = ({ poster_path, media_type }) => {
   return (
     <div className="bg-base-100 shadow-xl rounded-md w-full overflow-hidden">
       <div className="h-full flex justify-center items-center relative group">
-        <div className="absolute inset-0 bg-black bg-opacity-30 backdrop-blur-md rounded-md cursor-pointer  z-10 flex items-center justify-center">
+        <div className="absolute inset-0 bg-red bg-opacity-30 backdrop-blur-md rounded-md cursor-pointer  z-10 flex items-center justify-center">
           <span className="text-[var(--base-text)] group-hover:text-white transition-colors text-xl font-mono font-extralight">
             VIEW MORE
           </span>
