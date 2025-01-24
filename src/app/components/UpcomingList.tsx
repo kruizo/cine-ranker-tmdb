@@ -11,11 +11,8 @@ const UpcomingList = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        console.log("Fetching movies...");
-
         const response = await getHeroUpcomingMovies();
         setUpcomingMovies(response);
-        console.log(response);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }

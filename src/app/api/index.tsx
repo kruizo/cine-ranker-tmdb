@@ -14,7 +14,6 @@ const api = axios.create({
 
 const GET = async (endpoint: string, params: Record<string, any> = {}) => {
   try {
-    console.log("Request URL:", api.defaults.baseURL + endpoint, params);
     const response = await api.get(endpoint, { params });
     return response.data;
   } catch (err) {
@@ -57,17 +56,96 @@ const fetchTrendingAll = async (type: string, timeWindow: string) => {
   return GET(`/trending/all/${timeWindow}`);
 };
 
-const fetchLatestMovies = async (page = 1, keywords = "", genres = "") => {
+const fetchDiscoverMovies = async ({
+  page = 1,
+  keywords = "",
+  genres = "",
+  companyIds = "",
+  sort_by = "popularity.desc",
+  include_adult = false,
+  include_video = false,
+  language = "en-US",
+  minVoteAverage = 8,
+  releaseYearAfter = 2015,
+}) => {
+  switch (sort_by) {
+    case "popularity":
+      sort_by = "popularity.desc";
+      break;
+    case "release_date":
+      sort_by = "primary_release_date.desc";
+      break;
+    case "revenue":
+      sort_by = "revenue.desc";
+      break;
+    case "vote_average":
+      sort_by = "vote_average.desc";
+      break;
+    default:
+      sort_by = "popularity.desc";
+  }
+
   const params = {
-    include_adult: "true",
-    include_video: "false",
-    language: "en-US",
-    sort_by: "popularity.desc",
-    with_genres: genres,
-    with_keywords: keywords,
     page: page,
+    sort_by: sort_by,
+    ...(include_adult && { include_adult: include_adult }),
+    ...(include_video && { include_video: include_video }),
+    ...(language && { language: language }),
+    ...(keywords && { with_keywords: keywords }),
+    ...(genres && { with_genres: genres }),
+    ...(companyIds && { with_companies: companyIds }),
+    ...(minVoteAverage && { "vote_average.gte": minVoteAverage }),
+    ...(releaseYearAfter && {
+      "primary_release_date.gte": `${releaseYearAfter}-01-01`,
+    }),
   };
   return GET("/discover/movie", params);
+};
+
+const fetchDiscoverTVShows = async ({
+  page = 1,
+  keywords = "",
+  genres = "",
+  companyIds = "",
+  sort_by = "popularity.desc",
+  include_adult = false,
+  include_video = false,
+  language = "en-US",
+  minVoteAverage = 8,
+  releaseYearAfter = 2015,
+}) => {
+  switch (sort_by) {
+    case "popularity":
+      sort_by = "popularity.desc";
+      break;
+    case "release_date":
+      sort_by = "primary_release_date.desc";
+      break;
+    case "revenue":
+      sort_by = "revenue.desc";
+      break;
+    case "vote_average":
+      sort_by = "vote_average.desc";
+      break;
+    default:
+      sort_by = "popularity.desc";
+  }
+
+  const params = {
+    page: page,
+    sort_by: sort_by,
+    ...(include_adult && { include_adult: include_adult }),
+    ...(include_video && { include_video: include_video }),
+    ...(language && { language: language }),
+    ...(keywords && { with_keywords: keywords }),
+    ...(genres && { with_genres: genres }),
+    ...(companyIds && { with_companies: companyIds }),
+    ...(minVoteAverage && { "vote_average.gte": minVoteAverage }),
+    ...(releaseYearAfter && {
+      "primary_release_date.gte": `${releaseYearAfter}-01-01`,
+    }),
+  };
+  return GET("/discover/tv", params);
 };
 
 const getHeroUpcomingMovies = async (page = 1) => {
@@ -101,8 +179,9 @@ export {
   fetchPopularMovies,
   fetchTrendingMovies,
   fetchAuthentication,
+  fetchDiscoverTVShows,
   getHeroUpcomingMovies,
-  fetchLatestMovies,
+  fetchDiscoverMovies,
   fetchMoviesByGenre,
   fetchTrendingAll,
 };

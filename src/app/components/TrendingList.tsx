@@ -11,11 +11,8 @@ const TrendingList = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        console.log("Fetching movies...");
-
         const response = await fetchTrendingMovies("week");
         setTrendingMovies(response);
-        console.log(response);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }

@@ -12,14 +12,11 @@ const Hero = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        console.log("Fetching movies...");
-
         const response = await fetchPopularMovies();
         const result = response.results
           .slice(0, 5)
           .sort((a: IMovie, b: IMovie) => b.vote_average - a.vote_average);
         setUpcomingMovies(result);
-        console.log("asdsadsadas, " + result);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
