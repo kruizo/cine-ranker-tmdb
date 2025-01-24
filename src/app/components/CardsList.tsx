@@ -14,6 +14,7 @@ interface CardsListProps {
   items: IMovieCollection | ITvCollection | null;
   maxColumns?: number;
   maxRows?: number;
+  extendedCard?: boolean;
 }
 
 const CardsList: React.FC<CardsListProps> = ({
@@ -21,6 +22,7 @@ const CardsList: React.FC<CardsListProps> = ({
   items,
   maxColumns = 7,
   maxRows = 3,
+  extendedCard = false,
 }) => {
   const maxItems = maxColumns * maxRows - 1;
 
@@ -31,19 +33,12 @@ const CardsList: React.FC<CardsListProps> = ({
 
   return (
     <Fragment>
-      <div className="p-0 m-0 mx-auto">
-        <div
-          className="grid gap-4"
-          style={{
-            gridTemplateColumns: `repeat(${maxColumns}, minmax(0, 1fr))`,
-            gridTemplateRows: `repeat(${maxRows}, auto)`,
-          }}
-        >
+      <div className="p-0 m-0">
+        <div className="grid gap-4 grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
           {displayedItems &&
             displayedItems.map((item, index) => {
-              // Type narrowing based on category
               if (category === "movies") {
-                const movie = item as IMovie; // Type assertion to IMovie
+                const movie = item as IMovie;
                 return (
                   <Card
                     key={index}
@@ -55,7 +50,7 @@ const CardsList: React.FC<CardsListProps> = ({
                   />
                 );
               } else {
-                const tvShow = item as ITvShow; // Type assertion to ITvShow
+                const tvShow = item as ITvShow;
                 return (
                   <Card
                     key={index}
@@ -68,7 +63,7 @@ const CardsList: React.FC<CardsListProps> = ({
                 );
               }
             })}
-          {lastEntry && (
+          {extendedCard && lastEntry && (
             <ExtendedCard
               key={displayedItems?.length}
               media_type={lastEntry.media_type ?? category}
