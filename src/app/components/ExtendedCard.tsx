@@ -3,16 +3,10 @@ import { normalizeRating } from "@utils/script";
 
 interface ExtendedCard {
   poster_path: string;
-  vote_average: number;
   media_type: string;
 }
 
-const ExtendedCard: React.FC<ExtendedCard> = ({
-  poster_path,
-  vote_average,
-  media_type,
-}) => {
-  const normalizedRating = normalizeRating(vote_average);
+const ExtendedCard: React.FC<ExtendedCard> = ({ poster_path, media_type }) => {
   return (
     <div className="bg-base-100 shadow-xl rounded-md w-full overflow-hidden">
       <div className="h-full flex justify-center items-center relative group">

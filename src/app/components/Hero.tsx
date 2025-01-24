@@ -4,7 +4,7 @@ import ViewButton from "@components/ViewButton";
 import styles from "@styles/Hero.module.css";
 import { IMovie } from "@customTypes/index";
 import Rating from "./Rating";
-import { getHeroUpcomingMovies } from "../api";
+import { fetchPopularMovies } from "../api";
 
 const Hero = () => {
   const [upcomingMovies, setUpcomingMovies] = useState<IMovie[] | null>(null);
@@ -14,9 +14,12 @@ const Hero = () => {
       try {
         console.log("Fetching movies...");
 
-        const response = await getHeroUpcomingMovies();
-        setUpcomingMovies(response.results.slice(0, 5));
-        console.log(response);
+        const response = await fetchPopularMovies();
+        const result = response.results
+          .slice(0, 5)
+          .sort((a: IMovie, b: IMovie) => b.vote_average - a.vote_average);
+        setUpcomingMovies(result);
+        console.log("asdsadsadas, " + result);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }

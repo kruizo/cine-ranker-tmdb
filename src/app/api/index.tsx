@@ -14,6 +14,7 @@ const api = axios.create({
 
 const GET = async (endpoint: string, params: Record<string, any> = {}) => {
   try {
+    console.log("Request URL:", api.defaults.baseURL + endpoint, params);
     const response = await api.get(endpoint, { params });
     return response.data;
   } catch (err) {
@@ -56,12 +57,14 @@ const fetchTrendingAll = async (type: string, timeWindow: string) => {
   return GET(`/trending/all/${timeWindow}`);
 };
 
-const fetchLatestMovies = async (page = 1) => {
+const fetchLatestMovies = async (page = 1, keywords = "", genres = "") => {
   const params = {
     include_adult: "true",
     include_video: "false",
     language: "en-US",
     sort_by: "popularity.desc",
+    with_genres: genres,
+    with_keywords: keywords,
     page: page,
   };
   return GET("/discover/movie", params);
@@ -82,8 +85,17 @@ const fetchTrendingTV = async (timeWindow: string) => {
   return GET(`/trending/tv/${timeWindow}`);
 };
 
+const fetchKeywordId = async (keyword: string, page = 1) => {
+  const params = {
+    query: keyword,
+    page: page,
+  };
+  return GET("/search/keyword", params);
+};
+
 export {
   searchMovies,
+  fetchKeywordId,
   fetchTrendingTV,
   fetchAiringToday,
   fetchPopularMovies,

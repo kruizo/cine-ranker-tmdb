@@ -72,7 +72,6 @@ const CardsList: React.FC<CardsListProps> = ({
               key={displayedMovies?.length}
               media_type={lastEntry.media_type ?? "movie"}
               poster_path={lastEntry.poster_path}
-              vote_average={lastEntry.vote_average}
             />
           )}
         </div>
