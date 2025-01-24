@@ -99,7 +99,7 @@ const PopularTVListCards = () => {
             </div> */}
           </div>
           <div className="flex py-4">
-            <CardsList tv={recommendedShows} maxRows={2} />
+            <CardsList category="tv" items={recommendedShows} />
           </div>
         </div>
       )}
