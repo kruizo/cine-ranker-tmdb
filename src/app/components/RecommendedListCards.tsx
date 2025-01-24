@@ -72,7 +72,7 @@ const RecommendedListCards = () => {
         <div className="py-7">
           <div className="flex justify-between ">
             <div className="flex gap-2 items-center">
-              <h1 className="border-l-[var(--accent)] border-l-[12px] px-4 text-3xl font-extrabold text-primary-content">
+              <h1 className="text-lg sm:text-xl md:text-3xl border-l-[var(--accent)] border-l-[12px] px-4 font-extrabold text-primary-content">
                 RECOMMENDED
               </h1>
               <button
