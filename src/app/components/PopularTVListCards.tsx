@@ -1,7 +1,7 @@
 import { ITvCollection, ITvShow } from "@customTypes/index";
 import CardsList from "./CardsList";
 import { fetchAiringToday } from "../api";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const PopularTVListCards = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -10,12 +10,12 @@ const PopularTVListCards = () => {
 
   const [isFetching, setIsFetching] = useState(false);
 
-  const [itemsCache, setitemsCache] = useState<{
+  const itemsCache = useRef<{
     [key: number]: ITvCollection;
   }>({});
 
   const checkIfCanFetch = (page: number, page_change = false) => {
-    const hasCache = itemsCache[page];
+    const hasCache = itemsCache.current[page];
     const hasValidPageRange =
       page > 0 && page <= (recommendedShows?.total_pages || 1);
     const canFetch = !hasCache && !isFetching && hasValidPageRange;
@@ -40,7 +40,7 @@ const PopularTVListCards = () => {
       console.log("Prefetching items");
       const response = await fetchAiringToday(page);
       console.log("Fetch Successfull:", response);
-      setitemsCache((prev) => ({ ...prev, [page]: response }));
+      itemsCache.current[page] = response;
     } catch (error) {
       console.error("Error prefetching movies:", error);
     }
@@ -52,9 +52,9 @@ const PopularTVListCards = () => {
 
   useEffect(() => {
     const getMovies = async () => {
-      if (itemsCache[currentPage]) {
-        console.log("Data from Cache:", itemsCache[currentPage]);
-        setRecommendedMovies(itemsCache[currentPage]);
+      if (itemsCache.current[currentPage]) {
+        console.log("Data from Cache:", itemsCache.current[currentPage]);
+        setRecommendedMovies(itemsCache.current[currentPage]);
         setCurrentPage(currentPage);
         return;
       }
@@ -62,11 +62,10 @@ const PopularTVListCards = () => {
       try {
         setIsFetching(true);
 
-        const response =
-          itemsCache[currentPage] || (await fetchAiringToday(currentPage));
+        const response = await fetchAiringToday(currentPage);
 
         //cache the response
-        setitemsCache((prev) => ({ ...prev, [currentPage]: response }));
+        itemsCache.current[currentPage] = response;
         console.log("Data cached");
 
         setRecommendedMovies(response);

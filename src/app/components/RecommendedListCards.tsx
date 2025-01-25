@@ -1,7 +1,7 @@
 import { IMovieCollection } from "@customTypes/index";
 import CardsList from "./CardsList";
 import { fetchDiscoverMovies, fetchDiscoverTVShows } from "../api";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const RecommendedListCards = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -11,12 +11,12 @@ const RecommendedListCards = () => {
   const [category, setCategory] = useState<"movies" | "tv">("movies");
 
   // Cache for movie and show
-  const [itemsCache, setitemsCache] = useState<{
+  const itemsCache = useRef<{
     [key: string]: IMovieCollection;
   }>({});
 
   const checkIfCanFetch = (key: string, page: number, page_change = false) => {
-    const hasCache = itemsCache[key];
+    const hasCache = itemsCache.current[key];
     const hasValidPageRange =
       page > 0 && page <= (recommendedItems?.total_pages || 1);
     const canFetch = !hasCache && !isFetching && hasValidPageRange;
@@ -55,7 +55,7 @@ const RecommendedListCards = () => {
       console.log("Prefetching items");
       const response = await fetchItems(page, category);
       console.log("Fetch Successfull:", response);
-      setitemsCache((prev) => ({ ...prev, [cacheKey]: response }));
+      itemsCache.current[cacheKey] = response;
     } catch (error) {
       console.error("Error prefetching items:", error);
     }
@@ -71,9 +71,9 @@ const RecommendedListCards = () => {
     const getItems = async () => {
       const cacheKey = `${category}-${currentPage}`;
 
-      if (itemsCache[cacheKey]) {
-        console.log("Data from Cache:", itemsCache[cacheKey]);
-        setRecommendedItems(itemsCache[cacheKey]);
+      if (itemsCache.current[cacheKey]) {
+        console.log("Data from Cache:", itemsCache.current[cacheKey]);
+        setRecommendedItems(itemsCache.current[cacheKey]);
         setCurrentPage(currentPage);
         setIsFetching(false);
 
@@ -86,10 +86,7 @@ const RecommendedListCards = () => {
         const response = await fetchItems(currentPage, category);
 
         // cache the response
-        setitemsCache((prevCache) => ({
-          ...prevCache,
-          [cacheKey]: response,
-        }));
+        itemsCache.current[cacheKey] = response;
         console.log("Data cached");
 
         setRecommendedItems(response);
