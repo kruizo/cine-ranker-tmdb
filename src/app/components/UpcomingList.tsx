@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { IMovieCollection } from "@customTypes/index";
 import { fetchNowPlayingMovies } from "../api";
 import ListItem from "@components/ListItem";
@@ -20,7 +20,7 @@ const UpcomingList = () => {
     fetch();
   }, []);
   return (
-    <Fragment>
+    <>
       {upcomingMovies && (
         <div className="space-y-2">
           <h1 className="border-l-[var(--accent)] border-l-[12px] px-4  text-3xl font-extrabold text-primary-content mb-4 ">
@@ -39,7 +39,7 @@ const UpcomingList = () => {
           ))}
         </div>
       )}
-    </Fragment>
+    </>
   );
 };
 

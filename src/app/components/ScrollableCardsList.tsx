@@ -5,8 +5,6 @@ import {
   ITvShow,
 } from "@customTypes/index";
 import Card from "@components/Card";
-import { Fragment } from "react";
-import ExtendedCard from "@components/ExtendedCard";
 
 interface ScrollableCardsListProps {
   category: "movies" | "tv";
@@ -22,7 +20,7 @@ const ScrollableCardsList: React.FC<ScrollableCardsListProps> = ({
   const lastEntry = displayedItems?.[displayedItems.length - 1];
 
   return (
-    <Fragment>
+    <>
       <div className="max-w-full overflow-hidden ">
         <div className="flex gap-4 py-4 overflow-x-auto ">
           {displayedItems &&
@@ -57,7 +55,7 @@ const ScrollableCardsList: React.FC<ScrollableCardsListProps> = ({
             })}
         </div>
       </div>
-    </Fragment>
+    </>
   );
 };
 

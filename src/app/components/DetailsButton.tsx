@@ -1,9 +1,13 @@
 import Link from "next/link";
 
-const DetailsButton = () => {
+interface DetailsButtonProps {
+  href: string;
+}
+
+const DetailsButton: React.FC<DetailsButtonProps> = ({ href }) => {
   return (
-    <Link href="pages/search">
-      <button className="px-5 text-sm md:text-md py-3 bg-[color:var(--accent)] rounded-full text-[color:var(--text-white)] font-semibold ">
+    <Link href={href}>
+      <button className="px-5 text-sm md:text-md py-3 bg-[color:var(--accent)] rounded-full text-[color:var(--text-white)] font-semibold">
         More Details
       </button>
     </Link>

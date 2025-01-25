@@ -1,11 +1,7 @@
 import { ITvCollection, ITvShow } from "@customTypes/index";
 import CardsList from "./CardsList";
-import {
-  fetchDiscoverTVShows,
-  fetchAiringToday,
-  fetchTrendingTV,
-} from "../api";
-import { Fragment, useState, useEffect } from "react";
+import { fetchAiringToday } from "../api";
+import { useState, useEffect } from "react";
 
 const PopularTVListCards = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,7 +54,7 @@ const PopularTVListCards = () => {
   }, []);
 
   return (
-    <Fragment>
+    <>
       {recommendedShows && (
         <div className="py-7">
           <div className="flex justify-between ">
@@ -110,7 +106,7 @@ const PopularTVListCards = () => {
           </div>
         </div>
       )}
-    </Fragment>
+    </>
   );
 };
 

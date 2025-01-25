@@ -1,5 +1,5 @@
 import React from "react";
-import { normalizeRating, extractYearFromDate } from "@utils/script";
+import { normalizeRating } from "@utils/script";
 
 interface RatingProps {
   voteAverage: number;

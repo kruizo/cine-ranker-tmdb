@@ -6,7 +6,7 @@ interface SidepanelProps {
 const Sidepanel: React.FC<SidepanelProps> = ({ children }) => {
   return (
     <aside>
-      <div className="w-96  hidden xl:block p-3 space-y-10">{children}</div>
+      <div className="max-w-96 w-fit  p-3 space-y-10">{children}</div>
     </aside>
   );
 };

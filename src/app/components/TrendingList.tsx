@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { IMovieCollection } from "@customTypes/index";
 import { fetchTrendingMovies } from "../api";
 import RankedListItem from "@components/RankedListItem";
@@ -20,7 +20,7 @@ const TrendingList = () => {
     fetch();
   }, []);
   return (
-    <Fragment>
+    <>
       {trendingMovies && (
         <div className="space-y-2">
           <h1 className=" border-l-[var(--accent)] border-l-[12px] px-4 text-3xl font-extrabold text-primary-content mb-4 ">
@@ -40,7 +40,7 @@ const TrendingList = () => {
           ))}
         </div>
       )}
-    </Fragment>
+    </>
   );
 };
 

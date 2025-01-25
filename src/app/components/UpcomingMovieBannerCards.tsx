@@ -1,15 +1,9 @@
 import { IMovieCollection } from "@customTypes/index";
-import CardsList from "./CardsList";
-import {
-  fetchDiscoverMovies,
-  fetchDiscoverTVShows,
-  fetchUpcomingMovies,
-} from "../api";
-import { Fragment, useState, useEffect } from "react";
+import { fetchUpcomingMovies } from "../api";
+import { useState, useEffect } from "react";
 import BannerCarousel from "./BannerCarousel";
 
 const UpcomingMovieBannerCards = () => {
-  const [currentPage, setCurrentPage] = useState(1);
   const [upcomingMovies, setUpcomingMovies] = useState<IMovieCollection | null>(
     null
   );
@@ -27,7 +21,7 @@ const UpcomingMovieBannerCards = () => {
   }, []);
 
   return (
-    <Fragment>
+    <>
       {upcomingMovies && (
         <div className="py-7">
           <div className="flex justify-between "></div>
@@ -36,7 +30,7 @@ const UpcomingMovieBannerCards = () => {
           </div>
         </div>
       )}
-    </Fragment>
+    </>
   );
 };
 

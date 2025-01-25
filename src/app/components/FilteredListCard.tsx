@@ -1,9 +1,8 @@
 import { IMovieCollection } from "@customTypes/index";
-import CardsList from "./CardsList";
 import { fetchDiscoverMovies } from "../api";
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ScrollableCardsList from "./ScrollableCardsList";
-import GenresList from "@data/genre";
+import { getGenreIdByName } from "@utils/script";
 
 interface FilteredListCardProps {
   keywords?: string;
@@ -35,7 +34,7 @@ const FilteredListCard: React.FC<FilteredListCardProps> = ({
   useEffect(() => {
     const getMovies = async () => {
       try {
-        const genreString = genres && getGenreIdByName(genres);
+        const genreString = genres && getGenreIdByName(genres, exact_genre);
 
         const response = await fetchDiscoverMovies({
           page: 1,
@@ -53,31 +52,8 @@ const FilteredListCard: React.FC<FilteredListCardProps> = ({
     getMovies();
   }, []);
 
-  const getGenreIdByName = (names: Array<string> | string) => {
-    let genreString = "";
-
-    if (Array.isArray(genres)) {
-      const genreIds = genres
-        .map((genreName) => {
-          const genre = GenresList.find(
-            (g) => g.name.toLowerCase() === genreName.toLowerCase()
-          );
-          return genre?.id;
-        })
-        .filter(Boolean);
-      const result = exact_genre ? genreIds.join(",") : genreIds.join("|");
-
-      return result;
-    } else if (typeof genres === "string") {
-      const genre = GenresList.find(
-        (g) => g.name.toLowerCase() === genres.toLowerCase()
-      );
-      genreString = genre?.id ? genre.id.toString() : "";
-    }
-    return genreString;
-  };
   return (
-    <Fragment>
+    <>
       {filteredMovies && (
         <div className="py-7">
           <div className="flex justify-between items-center">
@@ -90,7 +66,7 @@ const FilteredListCard: React.FC<FilteredListCardProps> = ({
           </div>
         </div>
       )}
-    </Fragment>
+    </>
   );
 };
 

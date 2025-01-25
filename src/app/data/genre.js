@@ -77,4 +77,4 @@ const GenresList = [
   },
 ];
 
-module.exports = GenresList;
+export default GenresList;

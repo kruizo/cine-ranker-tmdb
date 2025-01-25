@@ -5,36 +5,38 @@ import {
   ITvShow,
 } from "@customTypes/index";
 import Card from "@components/Card";
-import Hero from "@components/Hero";
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ExtendedCard from "@components/ExtendedCard";
 
 interface CardsListProps {
   category: "movies" | "tv";
   items: IMovieCollection | ITvCollection | null;
+  gap?: number;
   maxColumns?: number;
   maxRows?: number;
   extendedCard?: boolean;
+  cardSize?: "small" | "medium" | "large";
 }
 
 const CardsList: React.FC<CardsListProps> = ({
   category,
   items,
+  gap = 4,
   maxColumns = 7,
   maxRows = 3,
   extendedCard = false,
+  cardSize,
 }) => {
   const [dynamicMaxColumns, setDynamicMaxColumns] = useState(maxColumns);
 
   const updateColumns = () => {
-    const containerWidth = document.body.clientWidth; // Replace with a specific container if needed
-    const cardWidth = 200; // Approximate width of a card (adjust as needed)
+    const containerWidth = document.body.clientWidth;
+    const cardWidth = 200;
     const columns = Math.floor(containerWidth / cardWidth);
     setDynamicMaxColumns(Math.min(columns, maxColumns));
   };
 
   useEffect(() => {
-    // Recalculate columns on mount and when the window resizes
     updateColumns();
     window.addEventListener("resize", updateColumns);
 
@@ -47,7 +49,7 @@ const CardsList: React.FC<CardsListProps> = ({
 
   return (
     <div
-      className="grid gap-4"
+      className={`grid gap-${gap}`}
       style={{
         gridTemplateColumns: `repeat(${dynamicMaxColumns}, minmax(0, 1fr))`,
       }}
@@ -64,6 +66,7 @@ const CardsList: React.FC<CardsListProps> = ({
                 poster_path={movie.poster_path}
                 release_date={movie.release_date}
                 vote_average={movie.vote_average}
+                size={cardSize}
               />
             );
           } else {
@@ -76,6 +79,7 @@ const CardsList: React.FC<CardsListProps> = ({
                 poster_path={tvShow.poster_path}
                 release_date={tvShow.first_air_date}
                 vote_average={tvShow.vote_average}
+                size={cardSize}
               />
             );
           }

@@ -1,5 +1,3 @@
-import { Fragment } from "react";
-
 interface ListItemProps {
   poster_path: string;
   title: string;
@@ -18,7 +16,7 @@ const ListItem: React.FC<ListItemProps> = ({
   vote_rating,
 }) => {
   return (
-    <Fragment>
+    <>
       <div className="flex gap-4 py-2 overflow-hidden">
         <div className="w-10 h-20">
           <img
@@ -34,7 +32,7 @@ const ListItem: React.FC<ListItemProps> = ({
           <h3 className="text-md font-semibold line-clamp-1">{title}</h3>
         </div>
       </div>
-    </Fragment>
+    </>
   );
 };
 

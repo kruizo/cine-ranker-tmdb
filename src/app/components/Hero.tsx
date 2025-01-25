@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, Fragment } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import DetailsButton from "@components/DetailsButton";
 import ViewButton from "@components/ViewButton";
 import styles from "@styles/Hero.module.css";
@@ -79,7 +79,7 @@ const Hero = () => {
         className="slider pointer-events-auto relative overflow-x-scroll overflow-y-hidden flex snap-x snap-mandatory mt-10"
       >
         {heroMovies && (
-          <Fragment>
+          <>
             {heroMovies.map((movie, index) => (
               <div
                 key={index}
@@ -105,7 +105,7 @@ const Hero = () => {
                       </p>
                     </div>
                     <div className="mt-7 flex gap-10 py-2">
-                      <DetailsButton />
+                      <DetailsButton href={`/movies/${movie.id}`} />
                       <ViewButton />
                     </div>
                   </div>
@@ -130,7 +130,7 @@ const Hero = () => {
                 </div>
               </div>
             ))}
-          </Fragment>
+          </>
         )}
       </div>
 
