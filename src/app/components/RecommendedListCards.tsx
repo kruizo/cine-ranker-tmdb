@@ -1,20 +1,22 @@
 import { IMovieCollection } from "@customTypes/index";
 import CardsList from "./CardsList";
 import { fetchDiscoverMovies, fetchDiscoverTVShows } from "../api";
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const RecommendedListCards = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [recommendedItems, setRecommendedItems] =
     useState<IMovieCollection | null>(null);
-  const [hoverItems, setHoverItems] = useState<{
-    [key: number]: IMovieCollection;
-  }>({});
   const [isFetching, setIsFetching] = useState(false);
   const [category, setCategory] = useState<"movies" | "tv">("movies");
 
-  const fetchItems = async (page: number, type: "movies" | "tv") => {
-    return type === "movies"
+  // Cache for movie and show
+  const [itemsCache, setitemsCache] = useState<{
+    [key: string]: IMovieCollection;
+  }>({});
+
+  const fetchItems = async (page: number, category: "movies" | "tv") => {
+    return category === "movies"
       ? fetchDiscoverMovies({
           page: page,
           minVoteAverage: 7,
@@ -27,11 +29,15 @@ const RecommendedListCards = () => {
         });
   };
 
-  const prefetchItems = async (page: number, type: "movies" | "tv") => {
-    if (hoverItems[page] || isFetching) return;
+  const prefetchItems = async (page: number, category: "movies" | "tv") => {
+    const cacheKey = `${category}-${page}`;
+    if (itemsCache[cacheKey] || isFetching) return;
+
     try {
-      const response = await fetchItems(page, type);
-      setHoverItems((prev) => ({ ...prev, [page]: response }));
+      console.log("Prefetching items");
+      const response = await fetchItems(page, category);
+      console.log("Fetch Successfull:", response);
+      setitemsCache((prev) => ({ ...prev, [cacheKey]: response }));
     } catch (error) {
       console.error("Error prefetching items:", error);
     }
@@ -41,35 +47,47 @@ const RecommendedListCards = () => {
     if (isFetching || page < 1 || page > (recommendedItems?.total_pages || 1))
       return;
 
-    setIsFetching(true);
-    try {
-      const response = hoverItems[page] || (await fetchItems(page, category));
-      console.log(
-        hoverItems[page] ? "Data from hoverItems" : "Data from fetch"
-      );
-      setRecommendedItems(response);
-      setCurrentPage(page);
-    } catch (error) {
-      console.error("Error fetching items:", error);
-    } finally {
-      setIsFetching(false);
-    }
+    setCurrentPage(page);
   };
 
   useEffect(() => {
     const getItems = async () => {
+      const cacheKey = `${category}-${currentPage}`;
+
+      if (itemsCache[cacheKey]) {
+        console.log("Data from Cache:", itemsCache[cacheKey]);
+        setRecommendedItems(itemsCache[cacheKey]);
+        setCurrentPage(currentPage);
+        setIsFetching(false);
+
+        return;
+      }
+
       try {
-        const response = await fetchItems(1, category);
+        setIsFetching(true);
+
+        const response = await fetchItems(currentPage, category);
+
+        // cache the response
+        setitemsCache((prevCache) => ({
+          ...prevCache,
+          [cacheKey]: response,
+        }));
+        console.log("Data cached");
+
         setRecommendedItems(response);
+        setCurrentPage(currentPage);
       } catch (error) {
         console.error("Error fetching items:", error);
+      } finally {
+        setIsFetching(false);
       }
     };
     getItems();
-  }, [category]);
+  }, [category, currentPage]);
 
   return (
-    <Fragment>
+    <>
       {recommendedItems && (
         <div className="py-7">
           <div className="flex justify-between ">
@@ -84,7 +102,7 @@ const RecommendedListCards = () => {
                     : "border-[var(--base-gray)] text-[var(--base-gray)]"
                 } transition-colors`}
                 onClick={() => setCategory("movies")}
-                onMouseEnter={() => prefetchItems(currentPage, "movies")}
+                onMouseEnter={() => prefetchItems(1, "movies")}
               >
                 MOVIES
               </button>
@@ -95,7 +113,7 @@ const RecommendedListCards = () => {
                     : "border-[var(--base-gray)] text-[var(--base-gray)]"
                 } transition-colors`}
                 onClick={() => setCategory("tv")}
-                onMouseEnter={() => prefetchItems(currentPage, "tv")}
+                onMouseEnter={() => prefetchItems(1, "tv")}
               >
                 TV SHOWS
               </button>
@@ -142,7 +160,7 @@ const RecommendedListCards = () => {
           </div>
         </div>
       )}
-    </Fragment>
+    </>
   );
 };
 
