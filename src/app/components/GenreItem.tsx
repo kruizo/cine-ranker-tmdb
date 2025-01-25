@@ -5,11 +5,18 @@ interface GenreItemProps {
   genreName: string;
   href: string;
   isActive: boolean;
+  onClick: () => void;
 }
 
-const GenreItem: React.FC<GenreItemProps> = ({ genreName, href, isActive }) => {
+const GenreItem: React.FC<GenreItemProps> = ({
+  genreName,
+  href,
+  isActive,
+  onClick,
+}) => {
   return (
-    <Link href={href}>
+    <Link href={href} onClick={onClick}>
+      {" "}
       <div className={`flex justify-between items-center py-2 rounded-md`}>
         <p
           className={`text-md font-semibold ${

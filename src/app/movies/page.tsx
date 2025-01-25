@@ -12,7 +12,6 @@ import { getGenreIdByName } from "@utils/script";
 const Movies = () => {
   const params = useSearchParams();
   const genres = params.getAll("q");
-  console.log("GENRES: ", genres);
 
   return (
     <div className="font-[family-name:var(--font-geist-sans)]" id="app">
