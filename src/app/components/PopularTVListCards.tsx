@@ -7,51 +7,78 @@ const PopularTVListCards = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [recommendedShows, setRecommendedMovies] =
     useState<ITvCollection | null>(null);
-  const [hoverMovies, setHoverMovies] = useState<{
-    [key: number]: ITvCollection;
-  }>({});
+
   const [isFetching, setIsFetching] = useState(false);
 
+  const [itemsCache, setitemsCache] = useState<{
+    [key: number]: ITvCollection;
+  }>({});
+
+  const checkIfCanFetch = (page: number, page_change = false) => {
+    const hasCache = itemsCache[page];
+    const hasValidPageRange =
+      page > 0 && page <= (recommendedShows?.total_pages || 1);
+    const canFetch = !hasCache && !isFetching && hasValidPageRange;
+    console.log(
+      "Checking if can fetch:",
+      canFetch,
+      "hasCache-",
+      hasCache ? "true" : "false",
+      "hasValidPageRange-",
+      hasValidPageRange,
+      "isFetching-",
+      isFetching
+    );
+    return (!hasCache && !isFetching && hasValidPageRange) || page_change;
+  };
   const prefetchMovies = async (page: number) => {
-    if (hoverMovies[page] || isFetching) return;
+    if (!checkIfCanFetch(page)) {
+      return;
+    }
+
     try {
+      console.log("Prefetching items");
       const response = await fetchAiringToday(page);
-      setHoverMovies((prev) => ({ ...prev, [page]: response }));
+      console.log("Fetch Successfull:", response);
+      setitemsCache((prev) => ({ ...prev, [page]: response }));
     } catch (error) {
       console.error("Error prefetching movies:", error);
     }
   };
 
   const handlePageChange = async (page: number) => {
-    if (isFetching || page < 1 || page > (recommendedShows?.total_pages || 1))
-      return;
-
-    setIsFetching(true);
-    try {
-      const response = hoverMovies[page] || (await fetchAiringToday(page));
-      console.log(
-        hoverMovies[page] ? "Data from hoverItems" : "Data from fetch"
-      );
-      setRecommendedMovies(response);
-      setCurrentPage(page);
-    } catch (error) {
-      console.error("Error fetching movies:", error);
-    } finally {
-      setIsFetching(false);
-    }
+    checkIfCanFetch(page, true) && setCurrentPage(page);
   };
 
   useEffect(() => {
     const getMovies = async () => {
+      if (itemsCache[currentPage]) {
+        console.log("Data from Cache:", itemsCache[currentPage]);
+        setRecommendedMovies(itemsCache[currentPage]);
+        setCurrentPage(currentPage);
+        return;
+      }
+
       try {
-        const response = await fetchAiringToday(1);
+        setIsFetching(true);
+
+        const response =
+          itemsCache[currentPage] || (await fetchAiringToday(currentPage));
+
+        //cache the response
+        setitemsCache((prev) => ({ ...prev, [currentPage]: response }));
+        console.log("Data cached");
+
         setRecommendedMovies(response);
+        setCurrentPage(currentPage);
       } catch (error) {
         console.error("Error fetching movies:", error);
+      } finally {
+        setIsFetching(false);
       }
     };
     getMovies();
-  }, []);
+  }, [currentPage]);
 
   return (
     <>
@@ -72,7 +99,7 @@ const PopularTVListCards = () => {
                 }`}
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
-                onMouseEnter={() => prefetchMovies(currentPage)}
+                onMouseEnter={() => prefetchMovies(currentPage - 1)}
               >
                 <i
                   className="fa fa-angle-left"
@@ -87,7 +114,7 @@ const PopularTVListCards = () => {
                 }`}
                 disabled={currentPage === recommendedShows.total_pages}
                 onClick={() => handlePageChange(currentPage + 1)}
-                onMouseEnter={() => prefetchMovies(currentPage)}
+                onMouseEnter={() => prefetchMovies(currentPage + 1)}
               >
                 <i
                   className="fa fa-angle-right"

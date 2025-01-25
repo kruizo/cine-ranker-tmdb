@@ -15,6 +15,24 @@ const RecommendedListCards = () => {
     [key: string]: IMovieCollection;
   }>({});
 
+  const checkIfCanFetch = (key: string, page: number, page_change = false) => {
+    const hasCache = itemsCache[key];
+    const hasValidPageRange =
+      page > 0 && page <= (recommendedItems?.total_pages || 1);
+    const canFetch = !hasCache && !isFetching && hasValidPageRange;
+    console.log(
+      "Checking if can fetch:",
+      canFetch,
+      "hasCache-",
+      hasCache ? "true" : "false",
+      "hasValidPageRange-",
+      hasValidPageRange,
+      "isFetching-",
+      isFetching
+    );
+    return (!hasCache && !isFetching && hasValidPageRange) || page_change;
+  };
+
   const fetchItems = async (page: number, category: "movies" | "tv") => {
     return category === "movies"
       ? fetchDiscoverMovies({
@@ -31,7 +49,7 @@ const RecommendedListCards = () => {
 
   const prefetchItems = async (page: number, category: "movies" | "tv") => {
     const cacheKey = `${category}-${page}`;
-    if (itemsCache[cacheKey] || isFetching) return;
+    if (!checkIfCanFetch(cacheKey, page)) return;
 
     try {
       console.log("Prefetching items");
@@ -44,10 +62,9 @@ const RecommendedListCards = () => {
   };
 
   const handlePageChange = async (page: number) => {
-    if (isFetching || page < 1 || page > (recommendedItems?.total_pages || 1))
-      return;
+    const cacheKey = `${category}-${page}`;
 
-    setCurrentPage(page);
+    checkIfCanFetch(cacheKey, page, true) && setCurrentPage(page);
   };
 
   useEffect(() => {
