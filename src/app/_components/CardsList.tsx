@@ -61,7 +61,8 @@ const CardsList: React.FC<CardsListProps> = ({
             return (
               <Card
                 key={index}
-                media_type={movie.media_type ?? "movie"}
+                id={movie.id}
+                media_type={movie.media_type ?? "movies"}
                 title={movie.title}
                 poster_path={movie.poster_path}
                 release_date={movie.release_date}
@@ -74,7 +75,8 @@ const CardsList: React.FC<CardsListProps> = ({
             return (
               <Card
                 key={index}
-                media_type={tvShow.media_type ?? "TV"}
+                id={tvShow.id}
+                media_type={tvShow.media_type ?? "tv"}
                 title={tvShow.name}
                 poster_path={tvShow.poster_path}
                 release_date={tvShow.first_air_date}

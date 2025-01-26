@@ -70,7 +70,7 @@ const Hero = () => {
       };
     }
   }, []);
-
+  const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
   return (
     <section id="hero" className="relative">
       <div
@@ -130,7 +130,7 @@ const Hero = () => {
                   </div>
                   <div className="hidden md:block h-96">
                     <img
-                      src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                      src={`${IMAGE_BASE_URL}/w500/${movie.poster_path}`}
                       className="rounded-lg object-contain h-full w-full"
                       alt={movie.title}
                     />
@@ -142,7 +142,7 @@ const Hero = () => {
                   <div className="absolute left inset-x-0 w-3/6 h-full bg-gradient-to-l from-transparent to-base-300" />
                   <div className="absolute bottom-0 inset-x-0 h-4/5 bg-gradient-to-b from-transparent to-base-300" />
                   <img
-                    src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+                    src={`${IMAGE_BASE_URL}/original/${movie.backdrop_path}`}
                     alt={`${movie.title} Background`}
                     className="w-full h-full object-cover object-center z-0"
                   />

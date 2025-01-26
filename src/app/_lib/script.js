@@ -1,4 +1,4 @@
-import GenresList from "../data/genre.js";
+import GenresList from "../_data/genre.js";
 
 const normalizeRating = (rating) => {
   const scaledToFive = (rating / 10) * 5;

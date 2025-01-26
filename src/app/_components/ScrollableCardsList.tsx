@@ -30,6 +30,7 @@ const ScrollableCardsList: React.FC<ScrollableCardsListProps> = ({
                 return (
                   <div key={index} className="flex-shrink-0 w-40 ">
                     <Card
+                      id={movie.id}
                       media_type={movie.media_type ?? "movie"}
                       title={movie.title}
                       poster_path={movie.poster_path}
@@ -43,6 +44,7 @@ const ScrollableCardsList: React.FC<ScrollableCardsListProps> = ({
                 return (
                   <div key={index} className="flex-shrink-0 w-40">
                     <Card
+                      id={tvShow.id}
                       media_type={tvShow.media_type ?? "TV"}
                       title={tvShow.name}
                       poster_path={tvShow.poster_path}

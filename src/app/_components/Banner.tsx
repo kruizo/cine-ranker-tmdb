@@ -1,5 +1,5 @@
 import React from "react";
-import { normalizeRating } from "@utils/script";
+import { normalizeRating } from "@lib/script";
 
 interface BannerProps {
   media_type: string;
@@ -23,6 +23,7 @@ const Banner: React.FC<BannerProps> = ({
   vote_average,
 }) => {
   const normalizedRating = normalizeRating(vote_average);
+  const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
 
   return (
     <div className="bg-base-100  h-96 shadow-xl rounded-md w-full cursor-pointer">
@@ -30,7 +31,7 @@ const Banner: React.FC<BannerProps> = ({
         <div className="absolute top-0 right-0 inset-0 bg-black opacity-50 z-10" />
         <div className="max-h-96 h-96 w-full -z-10 select-none">
           <img
-            src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
+            src={`${IMAGE_BASE_URL}/original/${backdrop_path}`}
             alt="Background Image"
             className="h-full w-full object-cover rounded-md object-center"
           />

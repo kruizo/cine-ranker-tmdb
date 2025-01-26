@@ -2,7 +2,7 @@ import { IMovieCollection } from "@customTypes/index";
 import { fetchDiscoverMovies } from "../../api";
 import { useState, useEffect } from "react";
 import ScrollableCardsList from "../ScrollableCardsList";
-import { getGenreIdByName } from "@utils/script";
+import { getGenreIdByName } from "@lib/script";
 
 interface FilteredListCardProps {
   keywords?: string;

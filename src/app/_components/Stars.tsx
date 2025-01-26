@@ -1,5 +1,5 @@
 import React from "react";
-import { normalizeRating } from "@utils/script";
+import { normalizeRating } from "@lib/script";
 
 interface StarsProps {
   voteAverage: number;

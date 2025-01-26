@@ -1,14 +1,14 @@
 import { ITvCollection } from "@customTypes/index";
 import CardsList from "../CardsList";
-import { fetchDiscoverTVShows } from "../../api";
+import { fetchDiscoverMovies } from "../../api";
 import { useState, useEffect, useRef } from "react";
-import { getGenreIdByName } from "@utils/script";
+import { getGenreIdByName } from "@lib/script";
 
-interface TVShowListCardsProps {
+interface MovieListCardsProps {
   genres: Array<string>;
 }
 
-const TVShowListCards: React.FC<TVShowListCardsProps> = ({ genres }) => {
+const MovieListCards: React.FC<MovieListCardsProps> = ({ genres }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [recommendedMovies, setRecommendedMovies] =
     useState<ITvCollection | null>(null);
@@ -54,7 +54,7 @@ const TVShowListCards: React.FC<TVShowListCardsProps> = ({ genres }) => {
     if (!checkIfCanFetch(cacheKey, page)) return;
 
     try {
-      const response = await fetchDiscoverTVShows({
+      const response = await fetchDiscoverMovies({
         page: page,
         minVoteAverage: 7,
         releaseYearAfter: 2015,
@@ -86,7 +86,7 @@ const TVShowListCards: React.FC<TVShowListCardsProps> = ({ genres }) => {
           return;
         }
 
-        const response = await fetchDiscoverTVShows({
+        const response = await fetchDiscoverMovies({
           page: currentPage,
           minVoteAverage: 7,
           releaseYearAfter: 2015,
@@ -112,7 +112,7 @@ const TVShowListCards: React.FC<TVShowListCardsProps> = ({ genres }) => {
       <div className="py-7 w-full">
         <div className="flex justify-between pb-3 ">
           <h1 className="text-lg sm:text-xl md:text-3xl border-l-[var(--accent)] border-l-[12px] px-4 font-extrabold text-primary-content">
-            BROWSE TV SHOWS
+            BROWSE MOVIES
           </h1>
         </div>
         {recommendedMovies?.results.length === 0 && (
@@ -124,7 +124,7 @@ const TVShowListCards: React.FC<TVShowListCardsProps> = ({ genres }) => {
         )}
         <div className="flex py-4">
           <CardsList
-            category="tv"
+            category="movies"
             items={recommendedMovies}
             maxRows={5}
             maxColumns={5}
@@ -164,4 +164,4 @@ const TVShowListCards: React.FC<TVShowListCardsProps> = ({ genres }) => {
   );
 };
 
-export default TVShowListCards;
+export default MovieListCards;

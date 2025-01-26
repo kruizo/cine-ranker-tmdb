@@ -15,12 +15,14 @@ const ListItem: React.FC<ListItemProps> = ({
   popularity,
   vote_rating,
 }) => {
+  const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+
   return (
     <>
       <div className="flex gap-4 py-2 overflow-hidden">
         <div className="w-10 h-20">
           <img
-            src={`https://image.tmdb.org/t/p/w500/${poster_path}}`}
+            src={`${IMAGE_BASE_URL}/w500/${poster_path}`}
             alt={`${title}-poster`}
             className="w-full h-full object-cover rounded-md"
           />

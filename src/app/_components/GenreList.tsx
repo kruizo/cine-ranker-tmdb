@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import GenresList from "@data/genre";
+import GenresList from "@/app/_data/genre";
 import GenreItem from "./GenreItem";
 
 interface GenreListProps {

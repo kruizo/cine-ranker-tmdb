@@ -20,11 +20,11 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@components/*": ["./src/app/components/*"],
+      "@components/*": ["./src/app/_components/*"],
       "@styles/*": ["./src/styles/*"],
-      "@customTypes*": ["./src/app/types/*"],
-      "@utils/*": ["./src/app/utils/*"],
-      "@data/*": ["./src/app/data/*"]
+      "@customTypes*": ["./src/app/_types/*"],
+      "@lib/*": ["./src/app/_lib/*"],
+      "@data/*": ["./src/app/_data/*"]
     }
   },
   "include": [
@@ -32,7 +32,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/utils/script.js"
+    "src/app/_lib/script.js"
   ],
   "exclude": ["node_modules"]
 }

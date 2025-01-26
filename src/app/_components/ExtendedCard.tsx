@@ -1,5 +1,5 @@
 import React from "react";
-import { normalizeRating } from "@utils/script";
+import { normalizeRating } from "@lib/script";
 
 interface ExtendedCard {
   poster_path: string;
@@ -7,6 +7,8 @@ interface ExtendedCard {
 }
 
 const ExtendedCard: React.FC<ExtendedCard> = ({ poster_path, media_type }) => {
+  const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+
   return (
     <div className="bg-base-100 shadow-xl rounded-md w-full overflow-hidden">
       <div className="h-full flex justify-center items-center relative group">
@@ -16,7 +18,7 @@ const ExtendedCard: React.FC<ExtendedCard> = ({ poster_path, media_type }) => {
           </span>
         </div>
         <img
-          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+          src={`${IMAGE_BASE_URL}/w500/${poster_path}`}
           alt="Poster"
           className="absolute -z-10 top-0 b-0 h-full object-cover scale-75 pb-20 group-hover:scale-125 transition-all rounded-md object-center"
         />

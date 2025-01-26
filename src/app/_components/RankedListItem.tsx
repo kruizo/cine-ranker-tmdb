@@ -17,6 +17,7 @@ const RankedListItem: React.FC<RankedListItemProps> = ({
   vote_rating,
   rank,
 }) => {
+  const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
   return (
     <>
       <div className="overflow-hidden relative flex flex-col justify-center">
@@ -34,7 +35,7 @@ const RankedListItem: React.FC<RankedListItemProps> = ({
         <div className="ml-9 flex gap-4 ">
           <div className="min-w-10 w-10 h-20">
             <img
-              src={`https://image.tmdb.org/t/p/w500/${poster_path}}`}
+              src={`${IMAGE_BASE_URL}/w500/${poster_path}`}
               alt={`${title}-poster`}
               className="w-full h-full object-cover rounded-md"
             />
