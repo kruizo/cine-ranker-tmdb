@@ -61,33 +61,23 @@ const fetchDiscoverMovies = async ({
   keywords = "",
   genres = "",
   companyIds = "",
-  sort_by = "popularity.desc",
+  sort_by = "popularity",
   include_adult = false,
   include_video = false,
   language = "en-US",
   minVoteAverage = 8,
   releaseYearAfter = 2015,
 }) => {
-  switch (sort_by) {
-    case "popularity":
-      sort_by = "popularity.desc";
-      break;
-    case "release_date":
-      sort_by = "primary_release_date.desc";
-      break;
-    case "revenue":
-      sort_by = "revenue.desc";
-      break;
-    case "vote_average":
-      sort_by = "vote_average.desc";
-      break;
-    default:
-      sort_by = "popularity.desc";
-  }
+  const sort_order: Record<string, string> = {
+    popularity: "popularity.desc",
+    release_date: "first_air_date.desc",
+    revenue: "revenue.desc",
+    vote_average: "vote_average.desc",
+  };
 
   const params = {
     page: page,
-    sort_by: sort_by,
+    sort_by: sort_order[sort_by],
     ...(include_adult && { include_adult: include_adult }),
     ...(include_video && { include_video: include_video }),
     ...(language && { language: language }),
@@ -107,33 +97,23 @@ const fetchDiscoverTVShows = async ({
   keywords = "",
   genres = "",
   companyIds = "",
-  sort_by = "popularity.desc",
+  sort_by = "popularity",
   include_adult = false,
   include_video = false,
   language = "en-US",
   minVoteAverage = 8,
   releaseYearAfter = 2015,
 }) => {
-  switch (sort_by) {
-    case "popularity":
-      sort_by = "popularity.desc";
-      break;
-    case "release_date":
-      sort_by = "primary_release_date.desc";
-      break;
-    case "revenue":
-      sort_by = "revenue.desc";
-      break;
-    case "vote_average":
-      sort_by = "vote_average.desc";
-      break;
-    default:
-      sort_by = "popularity.desc";
-  }
+  const sort_order: Record<string, string> = {
+    popularity: "popularity.desc",
+    release_date: "first_air_date.desc",
+    revenue: "revenue.desc",
+    vote_average: "vote_average.desc",
+  };
 
   const params = {
     page: page,
-    sort_by: sort_by,
+    sort_by: sort_order[sort_by],
     ...(include_adult && { include_adult: include_adult }),
     ...(include_video && { include_video: include_video }),
     ...(language && { language: language }),
