@@ -59,6 +59,48 @@ body {
 .test {
   border: 1px solid red;
 }
+
+.title {
+  background-image: url("/images/texure.jpg");
+  background-repeat: repeat;
+  background-clip: text;
+  font-weight: 800;
+  text-transform: uppercase;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rating {
+  margin-right: 5px;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.rating label {
+  margin: 0 20px;
+}
+
+.rating span {
+  background-color: #6c757d;
+  padding: 5px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.homeContainer .cast {
+  margin: 30px 0;
+}
+.cast h4 {
+  font-weight: 500;
+  margin-bottom: 10px;
+  font-size: 17px;
+}
+.cast h4 span {
+  color: #e50813;
+}
+
 .search {
   transition: border-color 0.3s ease; /* Smooth transition for the border color change */
   padding: 0.5rem;

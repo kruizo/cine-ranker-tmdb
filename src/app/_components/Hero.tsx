@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { PrimaryButton, GhostButton } from "@/app/components/Buttons/index";
-import styles from "@styles/Hero.module.css";
 import { IMovie } from "@customTypes/index";
 import Rating from "./Rating";
 import { fetchPopularMovies } from "../api";
@@ -89,7 +87,7 @@ const Hero = () => {
                   <div className="col-span-3 md:col-span-2 flex flex-col items-center md:items-start">
                     <div>
                       <h1
-                        className={`${styles.title} text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold overflow-wrap text-wrap break-words line-clamp-3`}
+                        className={`title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold overflow-wrap text-wrap break-words line-clamp-3`}
                       >
                         {movie.title}
                       </h1>
