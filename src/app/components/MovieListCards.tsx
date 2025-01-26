@@ -38,7 +38,7 @@ const MovieListCards: React.FC<MovieListCardsProps> = ({ genres }) => {
   };
 
   const getListAndCacheKey = (page: number) => {
-    const genreIdListString = getGenreIdByName(genres)
+    const genreIdListString = getGenreIdByName(genres, true)
       .split(",")
       .sort()
       .join(",");
@@ -46,6 +46,7 @@ const MovieListCards: React.FC<MovieListCardsProps> = ({ genres }) => {
     const cacheKey = `${genreIdListString}-${page}`;
     return { genreIdListString, cacheKey };
   };
+
   const prefetchMovies = async (page: number) => {
     console.log("Prefetching movies from page:", page);
 
