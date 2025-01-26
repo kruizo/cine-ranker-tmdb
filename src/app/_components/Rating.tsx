@@ -5,12 +5,14 @@ interface RatingProps {
   voteAverage: number;
   popularity: number;
   release_date: string;
+  language?: string;
 }
 
 const Rating: React.FC<RatingProps> = ({
   voteAverage,
   popularity,
   release_date,
+  language = "en-US",
 }) => {
   const normalizedRating = normalizeRating(voteAverage);
   const releaseYear = release_date.split("-")[0];
@@ -54,6 +56,11 @@ const Rating: React.FC<RatingProps> = ({
         <strong className="text-[var(--text-white)]">{popularity}</strong>{" "}
         Popularity
       </label>
+      {language && (
+        <label className="bg-[var(--base-text)] flex items-center justify-center text-[var(--accent)] px-2 rounded-lg">
+          <strong>{language.toUpperCase()}</strong>
+        </label>
+      )}
       <label className="bg-[var(--accent)] flex items-center justify-center text-[var(--text-white)] px-2 rounded-lg">
         <strong>{releaseYear}</strong>
       </label>

@@ -180,14 +180,19 @@ const fetchGenreIdFromName = async (genre: string) => {
   return genreId;
 };
 
-const fetchTrailerVIdeosById = async (id: string) => {
+const fetchTrailerVIdeosById = async (id: number) => {
   return GET(`/movie/${id}/videos`, { movie_id: id });
+};
+
+const fetchMovieDetailsById = async (id: string) => {
+  return GET(`/movie/${id}`);
 };
 
 export {
   searchMovies,
   fetchUpcomingMovies,
   fetchTrailerVIdeosById,
+  fetchMovieDetailsById,
   fetchKeywordId,
   fetchPopularTV,
   fetchTrendingTV,

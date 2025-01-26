@@ -9,7 +9,8 @@ const useFetchDiscover = (
   minVoteAverage: number = 8,
   releaseYearAfter: number = 2015,
   genres: Array<string> = [],
-  page_change: boolean = false
+  page_change: boolean = false,
+  exact_genre: boolean = true
 ) => {
   const [recommendedItems, setRecommendedItems] = useState<
     ITvCollection | IMovieCollection | null
@@ -21,7 +22,7 @@ const useFetchDiscover = (
   }>({});
 
   const getListAndCacheKey = (page: number) => {
-    const genreIdListString = getGenreIdByName(genres, true)
+    const genreIdListString = getGenreIdByName(genres, exact_genre)
       .split(",")
       .sort()
       .join(",");

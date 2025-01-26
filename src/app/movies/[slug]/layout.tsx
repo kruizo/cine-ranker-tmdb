@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 export default function MoviesDetails({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return <div className="movies-layout">{children}</div>;
+  return <div>{children}</div>;
 }

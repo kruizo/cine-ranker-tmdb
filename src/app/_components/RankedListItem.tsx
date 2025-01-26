@@ -22,9 +22,11 @@ const RankedListItem: React.FC<RankedListItemProps> = ({
   rank,
 }) => {
   const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  const titleUrl = title.replace(/\s+/g, "-").toLowerCase();
+
   return (
     <>
-      <Link href={`/movies/${id}`}>
+      <Link href={`/movies/${titleUrl}?id=${id}`}>
         <div className="overflow-hidden group relative flex flex-col group justify-center ">
           {/* <div className="text-4xl w-10 flex justify-center items-center p-1 font-bold text-[var(--accent)] border border-[var(--text-accent)]">
             {rank}

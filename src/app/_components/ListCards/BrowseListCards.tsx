@@ -7,12 +7,14 @@ interface MovieListCardsProps {
   genres: Array<string>;
   title: string;
   category: "movies" | "tv";
+  exact_genre?: boolean;
 }
 
 const BrowseListCards: React.FC<MovieListCardsProps> = ({
   title,
   genres,
   category,
+  exact_genre = true,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -22,7 +24,8 @@ const BrowseListCards: React.FC<MovieListCardsProps> = ({
     7,
     2015,
     genres,
-    false
+    false,
+    exact_genre
   );
 
   const handlePageChange = (page: number) => {

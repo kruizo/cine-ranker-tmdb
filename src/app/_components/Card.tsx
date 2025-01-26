@@ -30,6 +30,7 @@ const Card: React.FC<CardProps> = ({
     large: "h-96",
   };
   const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  const titleUrl = title.replace(/\s+/g, "-").toLowerCase();
 
   return (
     <Tilt
@@ -42,7 +43,7 @@ const Card: React.FC<CardProps> = ({
       glareColor="rgba(255, 255, 255, 0.5)" // Glare color
       glarePosition="top"
     >
-      <Link href={`${media_type}/${id}`}>
+      <Link href={`/${media_type}/${titleUrl}?id=${id}`}>
         <div className={`${cardSize[size]}`}>
           <img
             src={`${IMAGE_BASE_URL}/w500/${poster_path}`}

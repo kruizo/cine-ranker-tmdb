@@ -15,6 +15,7 @@ const Hero = () => {
           .slice(0, 5)
           .sort((a: IMovie, b: IMovie) => b.vote_average - a.vote_average);
         setHeroMovies(result);
+        console.log("hero:", result[0]);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
@@ -69,6 +70,9 @@ const Hero = () => {
     }
   }, []);
   const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  const formatTitle = (title: string) => {
+    return title.replace(/\s+/g, "-").toLowerCase();
+  };
   return (
     <section id="hero" className="relative">
       <div
@@ -103,7 +107,11 @@ const Hero = () => {
                       </p>
                     </div>
                     <div className="mt-7 flex gap-10 py-2">
-                      <Link href={`/movies/${movie.id}`}>
+                      <Link
+                        href={`/movies/${formatTitle(movie.title)}?id=${
+                          movie.id
+                        }`}
+                      >
                         <button className="btn-primary rounded-full btn-medium font-semibold">
                           <i
                             className="fa fa-info-circle"
