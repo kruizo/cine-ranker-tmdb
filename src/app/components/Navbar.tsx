@@ -35,7 +35,7 @@ const Navbar = () => {
             <button className="logo-text" data-text="Awesome">
               <span className="actual-text">&nbsp;CineRank&nbsp;</span>
               <span aria-hidden="true" className="hover-text">
-                &nbsp;CineRank&nbsp;
+                &nbsp;CineRanker&nbsp;
               </span>
             </button>
           </Link>
