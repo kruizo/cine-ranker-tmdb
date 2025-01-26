@@ -1,9 +1,8 @@
-import RecommendedListCards from "@components/RecommendedListCards";
+import RecommendedListCards from "@/app/components/ListCards/RecommendedListCards";
 import TrendingList from "@components/TrendingList";
 import Sidepanel from "@components/Sidepanel";
 import UpcomingList from "@components/UpcomingList";
-import PopularTVListCards from "@components/PopularTVListCards";
-import FilteredListCard from "@components/FilteredListCard";
+import { PopularTVListCards, FilteredListCard } from "@components/ListCards";
 import UpcomingMovieBannerCards from "@/app/components/UpcomingMovieBannerCards";
 
 const Content = () => {

@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import DetailsButton from "@components/DetailsButton";
-import ViewButton from "@components/ViewButton";
+import { PrimaryButton, GhostButton } from "@/app/components/Buttons/index";
 import styles from "@styles/Hero.module.css";
 import { IMovie } from "@customTypes/index";
 import Rating from "./Rating";
 import { fetchPopularMovies } from "../api";
+import Link from "next/link";
 
 const Hero = () => {
   const [heroMovies, setHeroMovies] = useState<IMovie[] | null>(null);
@@ -105,8 +105,27 @@ const Hero = () => {
                       </p>
                     </div>
                     <div className="mt-7 flex gap-10 py-2">
-                      <DetailsButton href={`/movies/${movie.id}`} />
-                      <ViewButton />
+                      <Link href={`/movies/${movie.id}`}>
+                        <button className="btn-primary rounded-full btn-medium font-semibold">
+                          <i
+                            className="fa fa-info-circle"
+                            style={{ fontSize: "30px" }}
+                          ></i>
+                          <span>More Details</span>
+                        </button>
+                      </Link>
+                      <Link href="">
+                        <button
+                          type="button"
+                          className="btn-ghost btn-small rounded-full btn-medium"
+                        >
+                          <i
+                            className="fa fa-play-circle"
+                            style={{ fontSize: "20px" }}
+                          ></i>
+                          <span>Trailer</span>
+                        </button>
+                      </Link>
                     </div>
                   </div>
                   <div className="hidden md:block h-96">

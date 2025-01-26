@@ -17,25 +17,15 @@ const Card: React.FC<CardProps> = ({
   poster_path,
   release_date,
   vote_average,
-  size,
+  size = "medium",
 }) => {
   const normalizedRating = normalizeRating(vote_average);
 
-  let cardSize = "h-72";
-  switch (size) {
-    case "small":
-      cardSize = "h-48";
-      break;
-    case "medium":
-      cardSize = "h-72";
-      break;
-    case "large":
-      cardSize = "h-96";
-      break;
-    default:
-      cardSize = "h-72";
-      break;
-  }
+  const cardSize = {
+    small: "h-48",
+    medium: "h-72",
+    large: "h-96",
+  };
 
   return (
     <Tilt
@@ -48,7 +38,7 @@ const Card: React.FC<CardProps> = ({
       glareColor="rgba(255, 255, 255, 0.5)" // Glare color
       glarePosition="top"
     >
-      <div className={`${cardSize}`}>
+      <div className={`${cardSize[size]}`}>
         <img
           src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
           alt="Poster"

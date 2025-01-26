@@ -31,20 +31,30 @@ const Navbar = () => {
               </svg>
             </div>
           </div>
-          <a className="px-2 py-1 rounded-lg bg-[var(--accent)] hidden text-xl lg:flex text-primary-content">
-            <span>
-              <strong>CINE</strong>
-            </span>
-            <span>RANK</span>
-          </a>
+          <Link href={"/"}>
+            <button className="logo-text" data-text="Awesome">
+              <span className="actual-text">&nbsp;CineRank&nbsp;</span>
+              <span aria-hidden="true" className="hover-text">
+                &nbsp;CineRank&nbsp;
+              </span>
+            </button>
+          </Link>
         </div>
 
         <div className="hidden sm:flex w-full min-w-[20rem] max-w-[40rem]">
           <SearchInput />
         </div>
         <div className="flex items-center gap-5">
+          <Link href="/movies">
+            <button className="nav-link">TV Shows</button>
+          </Link>
+          <Link href="/tv">
+            <button className="nav-link">Movies</button>
+          </Link>
           <Link href="">
-            <button className="">Login</button>
+            <button className="btn-primary btn-small bounce text-md font-extrabold">
+              SIGN UP
+            </button>
           </Link>
           <div className="flex items-center w-fit justify-between sm:hidden">
             <ToggleSearch />
