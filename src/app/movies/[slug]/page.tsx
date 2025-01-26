@@ -1,5 +1,5 @@
 "use client";
-import { IMovie } from "@/app/types";
+import { IMovie } from "@customTypes/index";
 import Navbar from "@components/Navbar";
 import { useEffect } from "react";
 

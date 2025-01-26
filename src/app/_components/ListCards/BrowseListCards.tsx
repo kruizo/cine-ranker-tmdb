@@ -5,13 +5,19 @@ import useFetchDiscover from "@/app/_hooks/useFetchDiscover";
 
 interface MovieListCardsProps {
   genres: Array<string>;
+  title: string;
+  category: "movies" | "tv";
 }
 
-const MovieListCards: React.FC<MovieListCardsProps> = ({ genres }) => {
+const BrowseListCards: React.FC<MovieListCardsProps> = ({
+  title,
+  genres,
+  category,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { recommendedItems, isFetching, prefetchItems } = useFetchDiscover(
-    "movies",
+    category,
     currentPage,
     7,
     2015,
@@ -28,19 +34,17 @@ const MovieListCards: React.FC<MovieListCardsProps> = ({ genres }) => {
       <div className="py-7 w-full">
         <div className="flex justify-between pb-3 ">
           <h1 className="text-lg sm:text-xl md:text-3xl border-l-[var(--accent)] border-l-[12px] px-4 font-extrabold text-primary-content">
-            BROWSE MOVIES
+            {title.toUpperCase()}
           </h1>
         </div>
         {recommendedItems?.results.length === 0 && (
           <div className="flex justify-center items-center h-96">
-            <h1 className="text-xl text-primary-content">
-              No movies found for this genre
-            </h1>
+            <h1 className="text-xl text-primary-content">No shows found.</h1>
           </div>
         )}
         <div className="flex py-4">
           <CardsList
-            category="movies"
+            category={category}
             items={recommendedItems}
             maxRows={5}
             maxColumns={5}
@@ -80,4 +84,4 @@ const MovieListCards: React.FC<MovieListCardsProps> = ({ genres }) => {
   );
 };
 
-export default MovieListCards;
+export default BrowseListCards;

@@ -24,7 +24,9 @@
       "@styles/*": ["./src/styles/*"],
       "@customTypes*": ["./src/app/_types/*"],
       "@lib/*": ["./src/app/_lib/*"],
-      "@data/*": ["./src/app/_data/*"]
+      "@data/*": ["./src/app/_data/*"],
+      "@api/*": ["./src/app/api/*"],
+      "@customHooks/*": ["./src/app/_hooks/*"]
     }
   },
   "include": [

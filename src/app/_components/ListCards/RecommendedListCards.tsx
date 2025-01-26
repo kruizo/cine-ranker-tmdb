@@ -2,103 +2,25 @@ import { IMovieCollection } from "@customTypes/index";
 import CardsList from "../CardsList";
 import { fetchDiscoverMovies, fetchDiscoverTVShows } from "../../api";
 import { useState, useEffect, useRef } from "react";
+import useFetchDiscover from "@customHooks/useFetchDiscover";
 
 const RecommendedListCards = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [recommendedItems, setRecommendedItems] =
-    useState<IMovieCollection | null>(null);
-  const [isFetching, setIsFetching] = useState(false);
+
   const [category, setCategory] = useState<"movies" | "tv">("movies");
 
-  // Cache for movie and show
-  const itemsCache = useRef<{
-    [key: string]: IMovieCollection;
-  }>({});
+  const { recommendedItems, isFetching, prefetchItems } = useFetchDiscover(
+    category,
+    currentPage,
+    7,
+    2015,
+    [],
+    false
+  );
 
-  const checkIfCanFetch = (key: string, page: number, page_change = false) => {
-    const hasCache = itemsCache.current[key];
-    const hasValidPageRange =
-      page > 0 && page <= (recommendedItems?.total_pages || 1);
-    const canFetch = !hasCache && !isFetching && hasValidPageRange;
-    console.log(
-      "Checking if can fetch:",
-      canFetch,
-      "hasCache-",
-      hasCache ? "true" : "false",
-      "hasValidPageRange-",
-      hasValidPageRange,
-      "isFetching-",
-      isFetching
-    );
-    return (!hasCache && !isFetching && hasValidPageRange) || page_change;
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
-
-  const fetchItems = async (page: number, category: "movies" | "tv") => {
-    return category === "movies"
-      ? fetchDiscoverMovies({
-          page: page,
-          minVoteAverage: 7,
-          releaseYearAfter: 2015,
-        })
-      : fetchDiscoverTVShows({
-          page,
-          minVoteAverage: 7,
-          releaseYearAfter: 2015,
-        });
-  };
-
-  const prefetchItems = async (page: number, category: "movies" | "tv") => {
-    const cacheKey = `${category}-${page}`;
-    if (!checkIfCanFetch(cacheKey, page)) return;
-
-    try {
-      console.log("Prefetching items");
-      const response = await fetchItems(page, category);
-      console.log("Fetch Successfull:", response);
-      itemsCache.current[cacheKey] = response;
-    } catch (error) {
-      console.error("Error prefetching items:", error);
-    }
-  };
-
-  const handlePageChange = async (page: number) => {
-    const cacheKey = `${category}-${page}`;
-
-    checkIfCanFetch(cacheKey, page, true) && setCurrentPage(page);
-  };
-
-  useEffect(() => {
-    const getItems = async () => {
-      const cacheKey = `${category}-${currentPage}`;
-
-      if (itemsCache.current[cacheKey]) {
-        console.log("Data from Cache:", itemsCache.current[cacheKey]);
-        setRecommendedItems(itemsCache.current[cacheKey]);
-        setCurrentPage(currentPage);
-        setIsFetching(false);
-
-        return;
-      }
-
-      try {
-        setIsFetching(true);
-
-        const response = await fetchItems(currentPage, category);
-
-        // cache the response
-        itemsCache.current[cacheKey] = response;
-        console.log("Data cached");
-
-        setRecommendedItems(response);
-        setCurrentPage(currentPage);
-      } catch (error) {
-        console.error("Error fetching items:", error);
-      } finally {
-        setIsFetching(false);
-      }
-    };
-    getItems();
-  }, [category, currentPage]);
 
   return (
     <>

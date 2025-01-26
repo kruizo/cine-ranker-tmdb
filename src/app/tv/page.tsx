@@ -3,10 +3,10 @@
 import { useSearchParams } from "next/navigation";
 import Navbar from "@components/Navbar";
 import Sidepanel from "@components/Sidepanel";
-import GenreList from "@/app/components/GenreList";
+import GenreList from "@components/GenreList";
 import TrendingList from "@components/TrendingList";
 import UpcomingList from "@components/UpcomingList";
-import { TVShowListCards } from "@components/ListCards";
+import { BrowseListCards } from "@components/ListCards";
 
 const TVShows = () => {
   const params = useSearchParams();
@@ -20,7 +20,11 @@ const TVShows = () => {
           <Sidepanel>
             <GenreList category="tv" />
           </Sidepanel>
-          <TVShowListCards genres={genres} />
+          <BrowseListCards
+            category="tv"
+            genres={genres}
+            title="Browse TV Shows"
+          />
           <div className="pt-20 hidden xl:block ">
             <Sidepanel>
               <TrendingList />

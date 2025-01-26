@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import Navbar from "@components/Navbar";
 import Sidepanel from "@components/Sidepanel";
 import GenreList from "@components/GenreList";
-import { MovieListCards } from "@components/ListCards";
+import { BrowseListCards } from "@components/ListCards";
 import TrendingList from "@components/TrendingList";
 import UpcomingList from "@components/UpcomingList";
 
@@ -20,7 +20,11 @@ const Movies = () => {
           <Sidepanel>
             <GenreList category="movies" />
           </Sidepanel>
-          <MovieListCards genres={genres} />
+          <BrowseListCards
+            category="movies"
+            genres={genres}
+            title="Browse movies"
+          />
           <div className="pt-20 hidden xl:block ">
             <Sidepanel>
               <TrendingList />
