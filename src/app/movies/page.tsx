@@ -15,7 +15,7 @@ const Movies = () => {
   return (
     <div className="font-[family-name:var(--font-geist-sans)]" id="app">
       <Navbar />
-      <main className="flex gap-8 items-start sm:items-start mx-auto max-w-6xl pt-28 px-5 max-auto">
+      <main className="flex gap-8 items-start justify-between sm:items-start mx-auto max-w-6xl pt-28 px-5 max-auto">
         <>
           <Sidepanel>
             <GenreList category="movies" />

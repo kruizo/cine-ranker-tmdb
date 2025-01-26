@@ -29,6 +29,7 @@ const UpcomingList = () => {
           {upcomingMovies.results.slice(0, 4).map((movie, index) => (
             <ListItem
               key={index}
+              id={movie.id}
               poster_path={movie.poster_path}
               title={movie.title}
               type={`Movie`}

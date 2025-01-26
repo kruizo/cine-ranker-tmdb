@@ -45,6 +45,9 @@ const Navbar = () => {
           <SearchInput />
         </div>
         <div className="flex items-center gap-5">
+          <Link href="/">
+            <button className="nav-link">Home</button>
+          </Link>
           <Link href="/tv">
             <button className="nav-link">TV Shows</button>
           </Link>

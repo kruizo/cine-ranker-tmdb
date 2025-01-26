@@ -11,7 +11,8 @@
   :root {
     --background: #000000;
     --foreground: #ededed;
-    --base-gradient: #000000;
+    --base-background: #000000;
+    --base-darker: #2c2c2c;
     --base-text: #cecece;
     --base-dark-text: #888888;
     --base-gray: #515151;
@@ -131,27 +132,14 @@ body {
   font-size: 15px;
   border: none;
   background: none;
-  /* font-weight: 600; */
   font-family: "Poppins", sans-serif;
+  transition: text-shadow 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
-.nav-link::before {
-  margin-left: auto;
-}
-
-.nav-link::after,
-.nav-link::before {
-  content: "";
-  width: 0%;
-  height: 2px;
-  background: #f44336;
-  display: block;
-  transition: 0.5s;
-}
-
-.nav-link:hover::after,
-.nav-link:hover::before {
-  width: 100%;
+.nav-link:hover {
+  color: #fff; /* Optional: Change text color when hovered */
+  text-shadow: 0 0 2px #f1f1f1, 0 0 5px #f1f1f1, 0 0 10px #f1f1f1,
+    0 0 15px #f1f1f1, 0 0 20px #f1f1f1;
 }
 
 .logo-text {

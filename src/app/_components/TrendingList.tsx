@@ -29,6 +29,7 @@ const TrendingList = () => {
           {trendingMovies.results.slice(0, 4).map((movie, index) => (
             <RankedListItem
               key={index}
+              id={movie.id}
               poster_path={movie.poster_path}
               title={movie.title}
               type={`Movie`}
