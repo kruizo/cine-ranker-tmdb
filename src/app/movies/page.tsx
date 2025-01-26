@@ -2,11 +2,11 @@
 
 import { useSearchParams } from "next/navigation";
 import Navbar from "@components/Navbar";
-import Sidepanel from "../components/Sidepanel";
-import GenreList from "../components/GenreList";
+import Sidepanel from "@components/Sidepanel";
+import GenreList from "@components/GenreList";
 import { MovieListCards } from "@components/ListCards";
-import TrendingList from "../components/TrendingList";
-import UpcomingList from "../components/UpcomingList";
+import TrendingList from "@components/TrendingList";
+import UpcomingList from "@components/UpcomingList";
 
 const Movies = () => {
   const params = useSearchParams();

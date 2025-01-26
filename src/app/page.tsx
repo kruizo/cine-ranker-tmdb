@@ -1,8 +1,8 @@
 "use client";
 
 import Hero from "@components/Hero";
-import Content from "./components/Content";
-import Navbar from "./components/Navbar";
+import Content from "@components/Content";
+import Navbar from "@components/Navbar";
 
 const Page = () => {
   return (
