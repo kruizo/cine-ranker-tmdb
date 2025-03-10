@@ -21,7 +21,7 @@ const Movies = () => {
           <Sidepanel>
             <GenreList category="movies" />
           </Sidepanel>
-          <Suspense>
+          <Suspense fallback={<div>Loading movies...</div>}>
             <BrowseListCards
               category="movies"
               genres={genres}
