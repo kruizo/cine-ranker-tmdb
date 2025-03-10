@@ -17,8 +17,6 @@ const ScrollableCardsList: React.FC<ScrollableCardsListProps> = ({
 }) => {
   const displayedItems = items?.results;
 
-  const lastEntry = displayedItems?.[displayedItems.length - 1];
-
   return (
     <>
       <div className="max-w-full overflow-hidden ">

@@ -2,7 +2,6 @@ import React from "react";
 import SearchInput from "@components/SearchInput";
 import ToggleSearch from "@components/ToggleSearch";
 import Link from "next/link";
-import { IMovie } from "@customTypesindex";
 
 const Navbar = () => {
   return (

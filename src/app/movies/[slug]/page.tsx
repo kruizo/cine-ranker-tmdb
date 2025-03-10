@@ -12,7 +12,7 @@ interface MoviePageProps {
   data: IMovie;
 }
 
-const MoviePage: React.FC<MoviePageProps> = ({ data }) => {
+const MoviePage: React.FC<MoviePageProps> = () => {
   const params = useSearchParams();
   const id = params.get("id");
   const [movie, setMovie] = useState<IMovieDetails | null>(null);

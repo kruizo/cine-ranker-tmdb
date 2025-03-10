@@ -16,7 +16,6 @@ const Banner: React.FC<BannerProps> = ({
   media_type,
   backdrop_path,
   title,
-  poster_path,
   release_date,
   popularity,
   vote_count,

@@ -1,6 +1,5 @@
-import { ITvCollection } from "@customTypes/index";
 import CardsList from "../CardsList";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import useFetchDiscover from "@/app/_hooks/useFetchDiscover";
 
 interface MovieListCardsProps {
@@ -18,7 +17,7 @@ const BrowseListCards: React.FC<MovieListCardsProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { recommendedItems, isFetching, prefetchItems } = useFetchDiscover(
+  const { recommendedItems, prefetchItems } = useFetchDiscover(
     category,
     currentPage,
     7,

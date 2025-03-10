@@ -17,8 +17,6 @@ const RankedListItem: React.FC<RankedListItemProps> = ({
   title,
   type,
   release_date,
-  popularity,
-  vote_rating,
   rank,
 }) => {
   const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;

@@ -12,7 +12,10 @@ const api = axios.create({
   },
 });
 
-const GET = async (endpoint: string, params: Record<string, any> = {}) => {
+const GET = async (
+  endpoint: string,
+  params: Record<string, string | number | boolean> = {}
+) => {
   try {
     const response = await api.get(endpoint, { params });
     return response.data;
@@ -170,14 +173,6 @@ const fetchKeywordId = async (keyword: string, page = 1) => {
     page: page,
   };
   return GET("/search/keyword", params);
-};
-
-const fetchGenreIdFromName = async (genre: string) => {
-  const response = await GET("/genre/movie/list");
-  const genreId = response.genres.find(
-    (g: { name: string; id: number }) => g.name === genre
-  )?.id;
-  return genreId;
 };
 
 const fetchTrailerVIdeosById = async (id: number) => {

@@ -5,8 +5,7 @@ import useFetchAiringToday from "@customHooks/useFetchAiringToday";
 const PopularTVListCards = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { recommendedShows, isFetching, prefetchShows } =
-    useFetchAiringToday(currentPage);
+  const { recommendedShows, prefetchShows } = useFetchAiringToday(currentPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);

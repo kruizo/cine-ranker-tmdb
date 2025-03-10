@@ -1,7 +1,5 @@
-import { IMovieCollection } from "@customTypes/index";
 import CardsList from "../CardsList";
-import { fetchDiscoverMovies, fetchDiscoverTVShows } from "../../api";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import useFetchDiscover from "@customHooks/useFetchDiscover";
 
 const RecommendedListCards = () => {
@@ -9,7 +7,7 @@ const RecommendedListCards = () => {
 
   const [category, setCategory] = useState<"movies" | "tv">("movies");
 
-  const { recommendedItems, isFetching, prefetchItems } = useFetchDiscover(
+  const { recommendedItems, prefetchItems } = useFetchDiscover(
     category,
     currentPage,
     7,

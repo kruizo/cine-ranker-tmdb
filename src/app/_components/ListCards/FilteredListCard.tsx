@@ -18,11 +18,9 @@ interface FilteredListCardProps {
 const FilteredListCard: React.FC<FilteredListCardProps> = ({
   keywords,
   genres,
-  include_adult,
   category = "movies",
   title,
   companyIds = [],
-  sort_by,
   exact_genre,
 }) => {
   const [filteredMovies, setFilteredMovies] = useState<IMovieCollection | null>(

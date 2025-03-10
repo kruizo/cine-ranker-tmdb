@@ -1,12 +1,10 @@
 import React from "react";
-import { normalizeRating } from "@lib/script";
-
 interface ExtendedCard {
   poster_path: string;
   media_type: string;
 }
 
-const ExtendedCard: React.FC<ExtendedCard> = ({ poster_path, media_type }) => {
+const ExtendedCard: React.FC<ExtendedCard> = ({ poster_path }) => {
   const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
 
   return (
