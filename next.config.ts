@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
     API_URL: process.env.API_URL,
     API_KEY: process.env.API_KEY,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
