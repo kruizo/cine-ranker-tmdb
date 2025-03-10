@@ -8,11 +8,7 @@ import { fetchMovieDetailsById } from "@/app/api";
 import { notFound } from "next/navigation";
 import { BrowseListCards } from "@/app/_components/ListCards";
 
-interface MoviePageProps {
-  data: IMovie;
-}
-
-const TVPage: React.FC<MoviePageProps> = () => {
+const TVPage = () => {
   const params = useSearchParams();
   const id = params.get("id");
   const [movie, setMovie] = useState<IMovieDetails | null>(null);

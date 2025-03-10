@@ -2,6 +2,7 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
+import nextEslint from "eslint-config-next";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -10,12 +11,16 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
-
-  // 👇 Add this custom rule override
+  nextEslint,
   {
     rules: {
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
     },
   },
 ];
