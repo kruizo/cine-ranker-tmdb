@@ -7,6 +7,7 @@ import GenreList from "@components/GenreList";
 import TrendingList from "@components/TrendingList";
 import UpcomingList from "@components/UpcomingList";
 import { BrowseListCards } from "@components/ListCards";
+import { Suspense } from "react";
 
 const TVShows = () => {
   const params = useSearchParams();
@@ -20,11 +21,13 @@ const TVShows = () => {
           <Sidepanel>
             <GenreList category="tv" />
           </Sidepanel>
-          <BrowseListCards
-            category="tv"
-            genres={genres}
-            title="Browse TV Shows"
-          />
+          <Suspense>
+            <BrowseListCards
+              category="tv"
+              genres={genres}
+              title="Browse TV Shows"
+            />
+          </Suspense>
           <div className="pt-20 hidden xl:block ">
             <Sidepanel>
               <TrendingList />
