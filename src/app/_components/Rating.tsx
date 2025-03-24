@@ -53,7 +53,9 @@ const Rating: React.FC<RatingProps> = ({
       </div>
 
       <label className="text-center border-r border-l px-1 ">
-        <strong className="text-[var(--text-white)]">{popularity}</strong>{" "}
+        <strong className="text-[var(--text-white)]">
+          {popularity.toFixed(2)}
+        </strong>{" "}
         Popularity
       </label>
       {language && (
