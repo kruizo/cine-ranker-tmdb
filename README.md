@@ -2,6 +2,21 @@
 
 A modern movie discovery application built with **Next.js** using The Movie Database (TMDb) API.
 
+## 📸 Screenshots
+
+Here are some screenshots of CineRanker in action:
+
+![Home Page](public/images/pic1.png)
+_The home page showcasing popular movies._
+
+![Home Page2](public/images/pic4.png)
+
+![Home Page3](public/images/pic5.png)
+
+![Browse Movies](public/images/pic2.png)
+
+![Movie Details](public/images/pic3.png)
+
 ## 🎬 Features
 
 - **Movie Discovery:** Search for movies and explore detailed information, such as cast, reviews, and trailers.
