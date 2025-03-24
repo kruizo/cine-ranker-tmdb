@@ -7,7 +7,6 @@ A modern movie discovery application built with **Next.js** using The Movie Data
 Here are some screenshots of CineRanker in action:
 
 ![Home Page](public/images/pic1.png)
-_The home page showcasing popular movies._
 
 ![Home Page2](public/images/pic4.png)
 
