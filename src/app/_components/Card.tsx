@@ -16,7 +16,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({
   id,
   media_type,
-  title,
+  title = "",
   poster_path,
   release_date,
   vote_average,
@@ -31,16 +31,15 @@ const Card: React.FC<CardProps> = ({
   };
   const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
   const titleUrl = title.replace(/\s+/g, "-").toLowerCase();
-
   return (
     <Tilt
       className="bg-base-100 shadow-xl rounded-md w-full cursor-pointer"
-      tiltMaxAngleX={5} // Max tilt on X-axis
-      tiltMaxAngleY={10} // Max tilt on Y-axis
-      scale={1.05} // Scale on hover
-      glareEnable={true} // Enable glare effect
+      tiltMaxAngleX={5}
+      tiltMaxAngleY={10}
+      scale={1.05}
+      glareEnable={true}
       glareMaxOpacity={0.5}
-      glareColor="rgba(255, 255, 255, 0.5)" // Glare color
+      glareColor="rgba(255, 255, 255, 0.5)"
       glarePosition="top"
     >
       <Link href={`/${media_type}/${titleUrl}?id=${id}`}>

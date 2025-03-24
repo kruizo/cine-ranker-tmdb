@@ -71,7 +71,7 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({ category, items }) => {
                   backdrop_path={movie.backdrop_path}
                   release_date={movie.release_date}
                   vote_average={movie.vote_average}
-                  popularity={movie.popularity}
+                  popularity={parseFloat(Number(movie.popularity).toFixed(2))}
                   vote_count={movie.vote_count}
                 />
               </div>
@@ -92,7 +92,7 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({ category, items }) => {
                   backdrop_path={tvShow.backdrop_path}
                   release_date={tvShow.first_air_date}
                   vote_average={tvShow.vote_average}
-                  popularity={tvShow.popularity}
+                  popularity={parseFloat(Number(tvShow.popularity).toFixed(2))}
                   vote_count={tvShow.vote_count}
                 />
               </div>
